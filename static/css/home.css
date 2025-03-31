@@ -1,0 +1,114 @@
+/* home.css */
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center; /* Центрируем коробку горизонтально */
+    align-items: center; /* Центрируем коробку вертикально */
+    text-align: left; /* Для текста внутри */
+    padding: 80px;
+    transition: padding 0.3s;
+}
+
+.interactive-start {
+    max-width: 2500px; /* Как ты хотел */
+    padding: 100px 500px 100px 100px; /* 100px сверху/снизу, 500px справа, 100px слева */
+    background: white;
+    border-radius: 11px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column; /* Контент и демо друг под другом */
+    align-items: stretch; /* Растягиваем содержимое по ширине */
+    justify-content: flex-start; /* Контент сверху */
+}
+
+body.dark-theme .interactive-start {
+    background: #1c1c1c;
+    color: #fff;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+.interactive-start h1 {
+    font-size: 55px;
+    margin-bottom: 30px;
+}
+
+body.dark-theme .interactive-start h1 {
+    color: #fff;
+}
+
+.interactive-start p {
+    font-size: 26px;
+    margin-bottom: 40px;
+}
+
+body.dark-theme .interactive-start p {
+    color: #bbb;
+}
+
+.start-button {
+    background: linear-gradient(135deg, #FFD700, #FFC107);
+    color: white;
+    padding: 24px 48px;
+    font-size: 30px;
+    border: none;
+    border-radius: 25px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.start-button:hover {
+    background: linear-gradient(135deg, #FFC107, #FFA000);
+}
+
+body.dark-theme .start-button {
+    background: linear-gradient(135deg, #ffcc00, #ff9900);
+}
+
+.interactive-content {
+    text-align: left;
+    max-width: 600px;
+    padding-left: 0; /* Прижимаем к левому краю внутри коробки */
+}
+
+/* Стили для секции с демонстрациями */
+.demo-section {
+    display: flex;
+    justify-content: space-around; /* Равномерно распределяем картинки */
+    gap: 30px; /* Расстояние между элементами */
+    margin-top: 60px; /* Отступ от контента сверху */
+    width: 100%; /* Занимает всю ширину коробки */
+}
+
+.demo-item {
+    text-align: center; /* Центрируем подписи под картинками */
+    position: relative; /* Для модного эффекта */
+    transition: transform 0.3s ease; /* Плавное движение */
+}
+
+.demo-item:hover {
+    transform: translateY(-10px); /* Поднимаем при наведении */
+}
+
+.demo-img {
+    max-width: 300px; /* Размер картинок */
+    height: auto;
+    border-radius: 12px; /* Скругленные углы */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* Модная тень */
+    border: 2px solid #FFD700; /* Золотая рамка */
+}
+
+body.dark-theme .demo-img {
+    box-shadow: 0 6px 15px rgba(255, 255, 255, 0.15);
+    border: 2px solid #ffcc00; /* Золотой в темной теме */
+}
+
+.demo-caption {
+    margin-top: 15px;
+    font-size: 18px;
+    font-weight: 500;
+    color: #333;
+}
+
+body.dark-theme .demo-caption {
+    color: #ddd;
+}

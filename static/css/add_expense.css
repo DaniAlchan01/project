@@ -1,0 +1,147 @@
+/* Контейнер */
+.container {
+    width: 100%;
+    max-width: 1200px; /* Чуть шире для удобства */
+    padding: 20px;
+    background: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin: 20px auto;
+    min-height: 500px; /* Увеличенная высота */
+}
+/* Кнопка "Добавить" */
+.btn-add {
+    background-color: #4CAF50; /* Зелёный цвет */
+    color: white;
+    padding: 8px 16px; /* Чуть меньше */
+    font-size: 13px; /* Уменьшенный текст */
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 120px; /* Фиксированная ширина */
+    height: 40px;
+    margin-left: auto; /* Переместить вправо */
+}
+
+
+/* Верхние кнопки */
+.top-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.btn {
+    flex: 1;
+    padding: 10px;
+    background: lightgray;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/* Контент: категории слева, форма справа */
+.content {
+    display: flex;
+    gap: 20px;
+}
+
+/* Категории (слева) */
+.categories {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 180px; /* Фиксированная ширина */
+}
+
+.category-btn {
+    padding: 8px 12px;
+    background: lightgray;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Форма (справа) */
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-grow: 1;
+    position: relative; /* Для абсолютного позиционирования */
+}
+
+/* Поле для комментария */
+.input-field.textarea {
+    min-height: 80px; /* Минимальная высота */
+    height: 120px; /* Увеличенная высота */
+    resize: vertical; /* Позволяет менять размер вручную */
+}
+
+/* Поля ввода */
+.input-field {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 500px;
+    font-size: 14px;
+}
+.photo-upload-size {
+    width: 32px;  /* Уменьши размер, например, до 32px */
+    height: 32px;
+}
+/* Фото */
+.photo-upload {
+    background: #3b8cb8; /* Тёмно-голубой */
+    height: 42px;
+    width: 110px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    color: white; /* Белый текст для контраста */
+}
+.photo-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* Выравнивание по правому краю */
+    gap: 10px; /* Отступ между фото и кнопкой */
+    margin-top: 10px; /* Немного отодвинуть от формы */
+}
+
+/* Эффект при наведении */
+.photo-upload:hover {
+    background: #0077B6; /* Чуть темнее */
+}
+.hidden-input {
+    display: none;
+}
+
+/* Превью фото */
+.photo-preview {
+    display: flex;
+    justify-content: flex-end; /* Выравнивание по правому краю */
+    margin-top: 10px;
+}
+
+.photo-preview img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+/* Кнопка добавления */
+.btn {
+    width: 100%;
+    text-align: center;
+    padding: 12px;
+    font-size: 14px;
+}

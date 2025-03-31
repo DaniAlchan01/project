@@ -1,0 +1,176 @@
+/* Сброс стилей */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Фон для страниц входа и регистрации */
+.auth-body {
+    font-family: Arial, sans-serif;
+    background: url("/static/img/back.avif") no-repeat center center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+}
+
+/* Размывающий слой без затемнения */
+.auth-body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(10px);
+    z-index: 1;
+}
+
+/* Контейнер логина (применены стили form-container) */
+.login-container {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 50px;
+    width: 900px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 0;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    display: flex;
+}
+
+/* Левая часть с картинкой */
+.login-image {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.login-image img {
+    width: 100%;
+    max-width: 250px;
+}
+
+/* Соцсети */
+.social-login {
+    margin-top: 15px;
+}
+
+.google-login, .facebook-login {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.google-login {
+    background: #db4437;
+    color: white;
+}
+
+.facebook-login {
+    background: #3b5998;
+    color: white;
+}
+
+/* Правая часть с формой */
+.form-container {
+    flex: 1;
+    padding: 40px;
+}
+
+/* Заголовок */
+.form-container h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Поля ввода */
+.form-container input {
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+/* Кнопка */
+.form-container button {
+    width: 100%;
+    padding: 12px;
+    background: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 18px;
+    border-radius: 0;
+}
+
+.form-container button:hover {
+    background: #0056b3;
+    box-shadow: 0 0 10px rgba(0, 91, 187, 0.5);
+}
+
+/* Ссылки */
+.form-container p {
+    margin-top: 15px;
+    font-size: 16px;
+}
+
+.form-container a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.form-container a:hover {
+    text-decoration: underline;
+}
+
+/* Кнопка "Назад" */
+.back-button {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: rgba(255, 255, 255, 0.7);
+    border: none;
+    font-size: 18px;
+    color: #007bff;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+    padding: 8px 12px;
+    border-radius: 5px;
+    z-index: 3;
+}
+
+.back-button:hover {
+    background: rgba(255, 255, 255, 0.9);
+    color: #0056b3;
+}
+
+/* Голубое свечение при фокусе */
+.form-container input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+}
+.forgot-password {
+    display: block;
+    margin-top: 10px;
+    font-size: 16px;
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}

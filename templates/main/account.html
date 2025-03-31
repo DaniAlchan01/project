@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Личный кабинет{% endblock %}
+
+{% block content %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/account.css' %}">
+{% endblock %}
+<div class="account-container">
+    <!-- Левая часть: аватарка и кнопки -->
+    <div class="left-side">
+        <div class="profile-image">
+            <img src="{{ user.avatar.url|default:'/media/profile_pics/default_avatar.jpg' }}" alt="Фото профиля">
+        </div>
+
+        <div class="profile-actions">
+            <a href="{% url 'userauth:update_profile' %}" class="btn btn-primary">Изменить профиль</a>
+            <a href="{% url 'userauth:change_password' %}" class="btn btn-secondary">Сменить пароль</a>
+            <a href="{% url 'userauth:change_username' %}" class="btn btn-warning">Сменить логин</a>
+            <form action="{% url 'userauth:logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Выйти</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Правая часть: информация о пользователе -->
+    <div class="right-side">
+        <div class="user-info">
+            <h1>{{ user.username }}</h1>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Статус:</strong> {% if user.is_vip %}VIP{% else %}Обычный{% endif %}</p>
+            <p><strong>Дата регистрации:</strong> {{ user.date_joined|date:"d.m.Y" }}</p>
+        </div>
+
+        <div class="additional-info">
+            <h2>Дополнительная информация</h2>
+            <p>Здесь может быть текст-рыба или любая другая информация о пользователе. Например:</p>
+            <ul>
+                <li>Активность: высокая</li>
+                <li>Команды: Product, Security, Testing</li>
+                <li>Роль: Разработчик</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

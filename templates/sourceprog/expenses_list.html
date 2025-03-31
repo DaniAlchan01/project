@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="expenses-container">
+
+    <!-- Левая панель с категориями -->
+    <div class="categories">
+        <h3>Категории</h3>
+        <div class="category-item">
+            <img src="{% static 'icons/food.png' %}" class="category-icon" alt="Еда">
+            <span class="category-name">Еда</span>
+            <span class="category-indicator" style="background: yellow;"></span>
+        </div>
+        <div class="category-item">
+            <img src="{% static 'icons/medicine.png' %}" class="category-icon" alt="Медицина">
+            <span class="category-name">Медицина</span>
+            <span class="category-indicator" style="background: red;"></span>
+        </div>
+        <div class="category-item">
+            <img src="{% static 'icons/clothes.png' %}" class="category-icon" alt="Одежда">
+            <span class="category-name">Одежда</span>
+            <span class="category-indicator" style="background: blue;"></span>
+        </div>
+        <!-- Добавь другие категории -->
+    </div>
+
+    <!-- Правая часть с расходами -->
+    <div class="expenses-content">
+        <h2>Мои расходы</h2>
+
+        <ul class="expenses-list">
+            {% for expense in expenses %}
+                <li>
+                    <div class="expense-header">
+                        <strong class="expense-category">{{ expense.category }}</strong>
+                        <span class="expense-amount">{{ expense.amount }}₸</span>
+                    </div>
+                    <p class="expense-comment">{{ expense.comment }}</p>
+                    {% if expense.photo %}
+                        <img src="{{ expense.photo.url }}" alt="Фото расхода" class="expense-photo">
+                    {% endif %}
+                </li>
+            {% empty %}
+                <p>У вас пока нет расходов.</p>
+            {% endfor %}
+        </ul>
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,107 @@
+.about-container {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    padding: 40px;
+}
+
+/* Блоки "О нас" */
+.about-block {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    background: white; /* Белый фон */
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.about-block:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Заголовки */
+.about-block h2 {
+    font-size: 26px;
+    color: #222;
+}
+
+/* Основной текст */
+.about-block p,
+.about-block ul {
+    font-size: 18px;
+    color: #444;
+}
+
+/* Убираем стандартные маркеры списка */
+.about-block ul {
+    list-style: none;
+    padding: 0;
+}
+
+.about-block li {
+    margin: 8px 0;
+}
+
+/* Изображения */
+.about-block img {
+    width: 260px;
+    height: auto;
+    border-radius: 12px;
+    border: 3px solid #eee; /* Светлая рамка */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.about-block img:hover {
+    transform: scale(1.05);
+}
+
+/* Разделительная линия */
+hr {
+    border: none;
+    height: 2px;
+    background: linear-gradient(to right, transparent, #ccc, transparent);
+    width: 80%;
+    margin: 20px auto;
+}
+
+/* Тёмная тема */
+.dark-theme .about-block {
+    background: #222; /* Тёмный фон */
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+}
+
+.dark-theme .about-block h2 {
+    color: #f0f0f0;
+}
+
+.dark-theme .about-block p,
+.dark-theme .about-block ul {
+    color: #bbb;
+}
+
+.dark-theme .about-block img {
+    border: 3px solid #444;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+}
+
+.dark-theme hr {
+    background: linear-gradient(to right, transparent, #555, transparent);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .about-block {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .about-block img {
+        width: 100%;
+        max-width: 300px;
+    }
+}

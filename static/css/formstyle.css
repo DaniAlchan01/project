@@ -1,0 +1,76 @@
+/* Сброс стилей */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Фон страницы */
+.auth-body {
+    font-family: Arial, sans-serif;
+    background: url("/static/img/back.avif") no-repeat center center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Контейнер формы */
+.form-container {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 40px;
+    width: 400px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+/* Заголовок */
+.form-container h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Поля ввода */
+.form-container input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+/* Кнопка */
+.form-container button {
+    width: 100%;
+    padding: 12px;
+    background: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 16px;
+}
+
+.form-container button:hover {
+    background: #0056b3;
+}
+.back-button {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: rgba(255, 255, 255, 0.7);
+    border: none;
+    font-size: 18px;
+    color: #007bff;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+    padding: 8px 12px;
+    border-radius: 5px;
+    z-index: 3;
+}
+
+.back-button:hover {
+    background: rgba(255, 255, 255, 0.9);
+    color: #0056b3;
+}

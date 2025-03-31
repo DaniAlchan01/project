@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" czontent="Управляйте своими расходами и финансами с удобной платформой учета трат.">
+    <title>{% block title %}Мой сайт{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/homestyle.css' %}">
+</head>
+<body>
+    <header>
+        <nav>
+            <a class="logo-img" href="{% url 'main:home' %}">
+                <img src="{% static 'img/logo.png' %}" alt="Логотип" class="logo">
+            </a>
+            <ul class="nav-center">
+                <li><a href="{% url 'main:home' %}" class="{% if request.resolver_match.view_name == 'main:home' %}active{% endif %}">Главная</a></li>
+                <li><a href="{% url 'main:about' %}" class="{% if request.resolver_match.view_name == 'main:about' %}active{% endif %}">О платформе</a></li>
+            </ul>
+            <ul class="nav-right">
+                {% if user.is_authenticated %}
+                    {% if request.resolver_match.view_name != "main:account" %}
+                        <li><a href="{% url 'main:account' %}">Личный кабинет</a></li>
+                        <li class="user-info">
+                            <div class="profile-container">
+                                {% if user.avatar %}
+                                    <img src="{{ user.avatar.url }}" alt="Фото профиля" class="profile-image" id="profile-avatar">
+                                {% else %}
+                                    <img src="{% static 'img/default-avatar.png' %}" alt="Фото профиля" class="profile-image" id="profile-avatar">
+                                {% endif %}
+                            </div>
+                        </li>
+                    {% endif %}
+                {% else %}
+                    <li><a href="{% url 'userauth:login' %}">Войти</a></li>
+                {% endif %}
+            </ul>
+
+            <!-- Переключатель темы -->
+            <div class="theme-toggle">
+                <span>Тёмная тема</span>
+                <label class="switch">
+                    <input type="checkbox" id="theme-toggle">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Всплывающее окно профиля -->
+    {% if user.is_authenticated %}
+        <div class="profile-popup hidden" id="profile-popup">
+            <p class="username">{{ user.username }}</p>
+            <p class="vip-status">
+                Статус:
+                {% if user.is_vip %}
+                    <span class="vip-yes">VIP</span>
+                {% else %}
+                    <span class="vip-no">Обычный</span>
+                {% endif %}
+            </p>
+        </div>
+    {% endif %}
+
+    <footer>
+        <p>&copy; 2025 Мой сайт. Все права защищены.</p>
+        <p>Есть вопросы? Напишите нам: <a href="mailto:support@mysite.com">support@mysite.com</a></p>
+    </footer>
+
+    <!-- Подключаем JS -->
+    <script src="{% static 'js/theme.js' %}"></script>
+    <script src="{% static 'js/profile_menu.js' %}"></script>
+</body>
+</html>

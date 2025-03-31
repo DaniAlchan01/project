@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход</title>
+    <link rel="stylesheet" href="{% static 'css/login-register.css' %}">
+</head>
+<body class="auth-body">
+    <a href="{% url 'main:home' %}" class="back-button">&larr; Назад</a>
+    <div class="login-container">
+    <!-- Форма слева -->
+    <div class="form-container">
+        <h2>Вход</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">{{ form.username }}</div>
+            <div class="form-group">{{ form.password }}</div>
+            <button type="submit">Войти</button>
+        </form>
+        <p><a href="{% url 'userauth:password_reset_by_login' %}" class="forgot-password">Забыли пароль?</a></p>
+        <p>Нет аккаунта? <a href="{% url 'userauth:register' %}">Зарегистрироваться</a></p>
+    </div>
+    <!-- Картинка справа + кнопки соцсетей -->
+    <div class="login-image">
+        <img src="{% static 'img/enter.png' %}" alt="Вход">
+        <div class="social-login">
+            <button class="google-login">Войти через Google</button>
+            <button class="facebook-login">Войти через Facebook</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,236 @@
+/* Общие стили */
+.account-container {
+    display: flex;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 100px auto;
+    padding: 20px;
+    align-items: flex-start;
+}
+
+/* Левая часть: аватарка и кнопки */
+.left-side {
+    width: 250px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+.profile-image {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    margin-bottom: 20px;
+}
+
+.profile-image img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #007bff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.profile-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+}
+
+.profile-actions .btn {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.profile-actions .btn-primary {
+    background: #007bff;
+    color: white;
+}
+
+.profile-actions .btn-primary:hover {
+    background: #0056b3;
+}
+
+.profile-actions .btn-secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.profile-actions .btn-secondary:hover {
+    background: #5a6268;
+}
+
+.profile-actions .btn-danger {
+    background: #dc3545;
+    color: white;
+}
+
+.profile-actions .btn-danger:hover {
+    background: #c82333;
+}
+
+.profile-actions .btn-warning {
+    background: #28a745;
+    color: white;
+}
+
+.profile-actions .btn-warning:hover {
+    background: #218838;
+}
+
+/* Правая часть */
+.right-side {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Блоки информации */
+.user-info, .additional-info {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
+    text-align: left;
+}
+
+/* Заголовки */
+.user-info h1, .additional-info h2 {
+    font-size: 26px;
+    color: #0056b3;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 5px;
+}
+
+/* Основной контент */
+.user-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.user-info p {
+    font-size: 18px;
+    color: #444;
+    margin: 0;
+    line-height: 1.6;
+}
+
+.user-info strong {
+    color: #007bff;
+    font-weight: bold;
+}
+
+/* Дополнительная информация */
+.additional-info ul {
+    list-style: none;
+    padding: 0;
+}
+
+.additional-info ul li {
+    font-size: 17px;
+    color: #333;
+    margin-bottom: 8px;
+    padding-left: 20px;
+    position: relative;
+}
+
+.additional-info ul li::before {
+    content: "•";
+    color: #007bff;
+    font-size: 22px;
+    position: absolute;
+    left: 0;
+    top: 2px;
+}
+
+/* Тёмная тема */
+.dark-theme .account-container {
+    background: #1e1e1e;
+}
+
+.dark-theme .left-side,
+.dark-theme .user-info,
+.dark-theme .additional-info {
+    background: #252525;
+    color: #e0e0e0;
+    border-radius: 10px;
+}
+
+.dark-theme .profile-actions .btn {
+    border: 1px solid #444;
+}
+
+.dark-theme .user-info h1,
+.dark-theme .additional-info h2 {
+    color: #62a5ff;
+    border-bottom-color: #62a5ff;
+}
+
+.dark-theme .profile-actions .btn-primary {
+    background: #3578e5;
+}
+
+.dark-theme .profile-actions .btn-primary:hover {
+    background: #1d5bc3;
+}
+
+.dark-theme .profile-actions .btn-secondary {
+    background: #555;
+}
+
+.dark-theme .profile-actions .btn-secondary:hover {
+    background: #444;
+}
+
+.dark-theme .profile-actions .btn-danger {
+    background: #b8323c;
+}
+
+.dark-theme .profile-actions .btn-danger:hover {
+    background: #a02a33;
+}
+
+.dark-theme .profile-actions .btn-warning {
+    background: #1e7e34;
+}
+
+.dark-theme .profile-actions .btn-warning:hover {
+    background: #18692b;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .account-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .left-side {
+        width: 100%;
+    }
+
+    .profile-actions .btn {
+        width: 100%;
+    }
+
+    .right-side {
+        width: 100%;
+    }
+}

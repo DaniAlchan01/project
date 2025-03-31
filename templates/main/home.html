@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Главная{% endblock %}
+{% block content %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+    <div class="interactive-start">
+        <div class="interactive-content">
+            <h1>Добро пожаловать!</h1>
+            <p>Начните пользоваться нашим сервисом прямо сейчас.📊📈</p>
+            <a href="{% url 'SourceProg:add_expense' %}" class="start-button">Начать!</a>
+        </div>
+        <div class="demo-section">
+            <div class="demo-item">
+                <img src="{% static 'img/demo1.png' %}" alt="Демонстрация 1" class="demo-img">
+                <p class="demo-caption">Удобный учет расходов</p>
+            </div>
+            <div class="demo-item">
+                <img src="{% static 'img/demo2.png' %}" alt="Демонстрация 2" class="demo-img">
+                <p class="demo-caption">Анализ ваших трат</p>
+            </div>
+            <div class="demo-item">
+                <img src="{% static 'img/demo3.png' %}" alt="Демонстрация 3" class="demo-img">
+                <p class="demo-caption">Планирование бюджета</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

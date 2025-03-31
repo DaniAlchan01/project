@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Добавить расход{% endblock %}
+
+{% block content %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/add_expense.css' %}">
+{% endblock %}
+<div class="container">
+    <!-- Верхние кнопки -->
+    <div class="top-buttons">
+        <button class="btn">Статистика диаграмма</button>
+        <button class="btn">История</button>
+    </div>
+
+    <div class="content">
+        <!-- Категории -->
+        <div class="categories">
+            <button class="category-btn"><span>Еда</span> 🍔</button>
+            <button class="category-btn"><span>Одежда</span> 👕</button>
+            <button class="category-btn"><span>Медицина</span> 💊</button>
+            <button class="category-btn"><span>Транспорт</span> 🚗</button>
+            <button class="category-btn"><span>Развлечения</span> 🎮</button>
+            <button class="category-btn"><span>Образование</span> 📚</button>
+            <button class="category-btn"><span>Коммунальные платежи</span> 💡</button>
+            <button class="category-btn"><span>Подарки</span> 🎁</button>
+            <button class="category-btn"><span>Прочее</span> 🔍</button>
+        </div>
+
+        <!-- Форма (по центру) -->
+        <div class="form-container">
+            <input type="number" placeholder="Введите сумму" class="input-field">
+            <textarea placeholder="Комментарий" class="input-field textarea"></textarea>
+
+            <!-- Кнопка загрузки фото -->
+            <label for="photo-upload" class="photo-upload">
+                (Фото)
+                <img src="{% static 'img/gallery.png' %}" class="photo-upload-size" alt="Фото">
+            </label>
+            <input type="file" id="photo-upload" class="hidden-input" accept="image/*">
+        </div>
+
+        <!-- Блок справа (превью фото и кнопка) -->
+        <div class="photo-section">
+            <div class="photo-preview">
+                <img src="{% static 'img/photo-icon.png' %}" alt="Выбранное фото">
+            </div>
+            <button class="btn-add">Добавить</button>
+        </div>
+    </div>
+</div>
+
+
+<!-- Подключаем JS для предпросмотра фото -->
+<script src="{% static 'js/photo_preview.js' %}" defer></script>
+{% endblock %}
