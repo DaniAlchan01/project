@@ -15,9 +15,9 @@
         </div>
 
         <div class="profile-actions">
-            <a href="{% url 'userauth:update_profile' %}" class="btn btn-primary">Изменить профиль</a>
+            <a href="{% url 'userauth:update_profile' %}" class="btn btn-primary">Изменить фото</a>
             <a href="{% url 'userauth:change_password' %}" class="btn btn-secondary">Сменить пароль</a>
-            <a href="{% url 'userauth:change_username' %}" class="btn btn-warning">Сменить логин</a>
+            <a href="{% url 'userauth:change_username' %}" class="btn btn-warning">Сменить имя</a>
             <form action="{% url 'userauth:logout' %}" method="post">
                 {% csrf_token %}
                 <button type="submit" class="btn btn-danger">Выйти</button>
@@ -42,7 +42,37 @@
                 <li>Команды: Product, Security, Testing</li>
                 <li>Роль: Разработчик</li>
             </ul>
+
+            <!-- Кнопка повышения до VIP, только для обычных пользователей -->
+            {% if not user.is_vip %}
+                <a href="{% url 'userauth:vipping' %}" class="btn btn-success">Получить VIP-статус</a>
+            {% else %}
+                <p>Вы уже VIP-пользователь!</p>
+            {% endif %}
+
+            <!-- Кнопка удаления аккаунта -->
+            <button type="button" class="btn btn-danger" id="delete-account-btn">Удалить аккаунт</button>
+
+            <!-- Модальное окно для подтверждения удаления -->
+            <div id="delete-account-modal" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <h2>Подтвердите удаление аккаунта</h2>
+                    <p>Вы уверены, что хотите удалить ваш аккаунт?</p>
+                    <textarea id="delete-reason" name="delete_reason" placeholder="Напишите причину (не обязательно)"></textarea>
+                    <div class="modal-buttons">
+                        <button type="button" id="cancel-delete" class="btn btn-secondary">Отмена</button>
+                        <form id="delete-form" action="{% url 'userauth:delete_account' %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" id="confirm-delete" class="btn btn-danger">Да, удалить</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
+{% block extra_js %}
+<script src="{% static 'js/account.js' %}"></script>
+{% endblock %}
 {% endblock %}

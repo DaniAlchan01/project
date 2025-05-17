@@ -4,9 +4,11 @@
     {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" czontent="Управляйте своими расходами и финансами с удобной платформой учета трат.">
+    <meta name="description" content="Управляйте своими расходами и финансами с удобной платформой учета трат.">
     <title>{% block title %}Мой сайт{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/homestyle.css' %}">
+    <!-- Добавляем блок для дополнительных стилей -->
+    {% block extra_css %}{% endblock %}
 </head>
 <body>
     <header>
@@ -18,24 +20,6 @@
                 <li><a href="{% url 'main:home' %}" class="{% if request.resolver_match.view_name == 'main:home' %}active{% endif %}">Главная</a></li>
                 <li><a href="{% url 'main:about' %}" class="{% if request.resolver_match.view_name == 'main:about' %}active{% endif %}">О платформе</a></li>
             </ul>
-            <ul class="nav-right">
-                {% if user.is_authenticated %}
-                    {% if request.resolver_match.view_name != "main:account" %}
-                        <li><a href="{% url 'main:account' %}">Личный кабинет</a></li>
-                        <li class="user-info">
-                            <div class="profile-container">
-                                {% if user.avatar %}
-                                    <img src="{{ user.avatar.url }}" alt="Фото профиля" class="profile-image" id="profile-avatar">
-                                {% else %}
-                                    <img src="{% static 'img/default-avatar.png' %}" alt="Фото профиля" class="profile-image" id="profile-avatar">
-                                {% endif %}
-                            </div>
-                        </li>
-                    {% endif %}
-                {% else %}
-                    <li><a href="{% url 'userauth:login' %}">Войти</a></li>
-                {% endif %}
-            </ul>
 
             <!-- Переключатель темы -->
             <div class="theme-toggle">
@@ -45,6 +29,23 @@
                     <span class="slider"></span>
                 </label>
             </div>
+            <ul class="nav-right">
+                {% if user.is_authenticated %}
+                    {% if request.resolver_match.view_name != "main:account" %}
+                        <li>
+                            <div class="profile-container">
+                                {% if user.avatar %}
+                                    <a href="{% url 'main:account' %}"><img src="{{ user.avatar.url }}" alt="Фото профиля" class="profile-image" id="profile-avatar" ></a>
+                                {% else %}
+                                    <a href="{% url 'main:account' %}"><img src="{% static 'img/default-avatar.png' %}" alt="Фото профиля" class="profile-image" id="profile-avatar"></a>
+                                {% endif %}
+                            </div>
+                        </li>
+                    {% endif %}
+                {% else %}
+                    <li><a class="sign_in" href="{% url 'userauth:login' %}">Войти</a></li>
+                {% endif %}
+            </ul>
         </nav>
     </header>
 
@@ -67,13 +68,11 @@
         </div>
     {% endif %}
 
-    <footer>
-        <p>&copy; 2025 Мой сайт. Все права защищены.</p>
-        <p>Есть вопросы? Напишите нам: <a href="mailto:support@mysite.com">support@mysite.com</a></p>
-    </footer>
+
 
     <!-- Подключаем JS -->
     <script src="{% static 'js/theme.js' %}"></script>
-    <script src="{% static 'js/profile_menu.js' %}"></script>
+    <!-- Добавляем блок для дополнительных скриптов -->
+    {% block extra_js %}{% endblock %}
 </body>
 </html>

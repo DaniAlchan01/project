@@ -8,7 +8,7 @@
 /* Фон для страниц входа и регистрации */
 .auth-body {
     font-family: Arial, sans-serif;
-    background: url("/static/img/back.avif") no-repeat center center/cover;
+    background: linear-gradient(135deg, #ffa500, #ff7f50, #ff4500);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -34,7 +34,7 @@
     padding: 50px;
     width: 900px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    border-radius: 0;
+    border-radius: 15px;
     text-align: center;
     position: relative;
     z-index: 2;
@@ -67,6 +67,7 @@
     margin-top: 10px;
     font-size: 16px;
     border: none;
+    border-radius:8px;
     cursor: pointer;
 }
 
@@ -98,6 +99,7 @@
     padding: 15px;
     margin: 10px 0;
     border: 1px solid #ccc;
+    border-radius:8px;
     font-size: 16px;
 }
 
@@ -107,11 +109,11 @@
     padding: 12px;
     background: #007bff;
     color: white;
-    border: none;
+    border:none;
+    border-radius: 8px;
     cursor: pointer;
     transition: 0.3s;
     font-size: 18px;
-    border-radius: 0;
 }
 
 .form-container button:hover {
@@ -137,10 +139,11 @@
 
 /* Кнопка "Назад" */
 .back-button {
+    text-decoration:none;
     position: absolute;
     top: 15px;
     left: 15px;
-    background: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 1);
     border: none;
     font-size: 18px;
     color: #007bff;
@@ -173,4 +176,24 @@
 
 .forgot-password:hover {
     text-decoration: underline;
+}
+
+.messages {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+}
+
+.message {
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #ffd2d2;
+    color: #a30000;
+    margin-bottom: 10px;
+}
+
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
 }

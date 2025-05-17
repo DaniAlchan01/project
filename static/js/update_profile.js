@@ -1,10 +1,13 @@
 document.addEventListener("DOMContentLoaded", function () {
     const avatarInput = document.querySelector("#id_avatar");
     const avatarPreview = document.querySelector("#avatar-preview");
-    const fileInfo = document.querySelector("#file-info");
+    const fileNameSpan = document.querySelector("#file-name");
+    const fileSizeSpan = document.querySelector("#file-size");
+    const fileTypeSpan = document.querySelector("#file-type");
 
     avatarInput.addEventListener("change", function () {
         const file = avatarInput.files[0];
+
         if (file) {
             const reader = new FileReader();
             reader.onload = function (e) {
@@ -12,15 +15,14 @@ document.addEventListener("DOMContentLoaded", function () {
             };
             reader.readAsDataURL(file);
 
-            // Добавление информации о файле
-            const fileSize = (file.size / 1024).toFixed(2); // Размер в КБ
-            fileInfo.innerHTML = `
-                <p><strong>Имя:</strong> ${file.name}</p>
-                <p><strong>Размер:</strong> ${fileSize} KB</p>
-                <p><strong>Формат:</strong> ${file.type || "Неизвестный"}</p>
-            `;
+            fileNameSpan.textContent = file.name;
+            fileSizeSpan.textContent = (file.size / 1024).toFixed(2) + " KB";
+            fileTypeSpan.textContent = file.type || "Неизвестный";
         } else {
-            fileInfo.innerHTML = "";
+            avatarPreview.src = '/media/profile_pics/default_avatar.jpg';
+            fileNameSpan.textContent = "Нет файла";
+            fileSizeSpan.textContent = "-";
+            fileTypeSpan.textContent = "-";
         }
     });
 });

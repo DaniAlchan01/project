@@ -6,48 +6,50 @@
     <button class="back-button" onclick="history.back()">← Назад</button>
 
     <div class="profile-edit-container">
-        <!-- Левая часть - изображение и кнопка выбора файла -->
-        <div class="image-section">
-            <div class="image-preview">
-                <img id="avatar-preview"
-                    src="{{ user.avatar.url|default:'/media/profile_pics/default_avatar.jpg' }}"
-                    alt="Предпросмотр фото">
-            </div>
-            <label class="upload-button">
-                Выбрать фото
-                <input type="file" id="id_avatar" name="avatar" accept="image/*">
-            </label>
-        </div>
-
-        <!-- Правая часть - форма и информация о файле -->
-        <div class="form-container">
+        <form method="post" enctype="multipart/form-data" class="form-container">
+            {% csrf_token %}
             <h2>Изменение профиля</h2>
-            <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ form.non_field_errors }}
+            {{ form.non_field_errors }}
 
-                {% for field in form %}
-                    {% if field.name == "email" %}
-                        <input type="hidden" name="{{ field.name }}" value="{{ field.value }}">
-                    {% elif field.name != "avatar" %} <!-- Скрываем стандартный инпут загрузки -->
-                        <div class="form-group">
-                            {{ field.label_tag }}
-                            {{ field }}
-                            {{ field.errors }}
-                        </div>
-                    {% endif %}
-                {% endfor %}
-
-                <!-- Блок информации о файле -->
-                <div id="file-info" class="file-info">
-                    <p><strong>Выбранный файл:</strong> <span id="file-name">Нет файла</span></p>
-                    <p><strong>Размер:</strong> <span id="file-size">-</span></p>
-                    <p><strong>Формат:</strong> <span id="file-type">-</span></p>
+            <div class="image-section">
+                <div class="image-preview">
+                    <img id="avatar-preview"
+                         src="{{ user.avatar.url|default:'/media/profile_pics/default_avatar.jpg' }}"
+                         alt="Предпросмотр фото">
                 </div>
+                <label class="upload-button" for="id_avatar">
+                    Выбрать фото
+                </label>
+                <input type="file" id="id_avatar" name="avatar" accept="image/*" style="display:none;">
+                <!-- Скрываем стандартный input, используем кастомную кнопку -->
+            </div>
 
-                <button type="submit">Сохранить</button>
-            </form>
-        </div>
+            {% for field in form %}
+                {% if field.name == "email" %}
+                    <input type="hidden" name="{{ field.name }}" value="{{ field.value }}">
+                {% elif field.name != "avatar" %}
+                    <div class="form-group">
+                        {{ field.label_tag }}
+                        {{ field }}
+                        {% if field.errors %}
+                            <div class="error-message">
+                                {% for error in field.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+
+            <div id="file-info" class="file-info">
+                <p><strong>Выбранный файл:</strong> <span id="file-name">Нет файла</span></p>
+                <p><strong>Размер:</strong> <span id="file-size">-</span></p>
+                <p><strong>Формат:</strong> <span id="file-type">-</span></p>
+            </div>
+
+            <button type="submit">Сохранить</button>
+        </form>
     </div>
 </div>
 

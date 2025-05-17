@@ -1,30 +1,45 @@
 {% extends "base.html" %}
 {% load static %}
 {% block title %}Главная{% endblock %}
-{% block content %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
 {% endblock %}
+
+{% block content %}
     <div class="interactive-start">
         <div class="interactive-content">
-            <h1>Добро пожаловать!</h1>
-            <p>Начните пользоваться нашим сервисом прямо сейчас.📊📈</p>
+    <div class="text-content">
+        <h1>Добро пожаловать в 4Count!</h1>
+        <p>Управляйте своими финансами просто и удобно. 📊</p>
+        <p>Мы помогаем отслеживать расходы, планировать бюджет и достигать финансовых целей — в одном приложении.</p>
+        <p><strong>Начните прямо сейчас</strong> и получите полный контроль над своими деньгами!</p>
+
+        {% if user.is_authenticated %}
             <a href="{% url 'SourceProg:add_expense' %}" class="start-button">Начать!</a>
-        </div>
-        <div class="demo-section">
-            <div class="demo-item">
-                <img src="{% static 'img/demo1.png' %}" alt="Демонстрация 1" class="demo-img">
-                <p class="demo-caption">Удобный учет расходов</p>
-            </div>
-            <div class="demo-item">
-                <img src="{% static 'img/demo2.png' %}" alt="Демонстрация 2" class="demo-img">
-                <p class="demo-caption">Анализ ваших трат</p>
-            </div>
-            <div class="demo-item">
-                <img src="{% static 'img/demo3.png' %}" alt="Демонстрация 3" class="demo-img">
-                <p class="demo-caption">Планирование бюджета</p>
-            </div>
+        {% else %}
+            <button type="button" class="start-button" id="unauthStartBtn">Начать!</button>
+        {% endif %}
+    </div>
+
+    <div class="image-content">
+        <img alt="График" class="img_graf" src="{% static 'img/graf.png' %}">
+    </div>
+</div>
+ <div id="authModal" class="modal-overlay">
+    <div class="modal-window">
+        <span class="close-modal" id="closeModal">&times;</span>
+        <img src="{% static 'img/warning.png' %}" alt="Предупреждение" class="modal-icon">
+        <p>Вы не авторизованы</p>
+        <div class="auth-buttons">
+            <a href="{% url 'userauth:login' %}" class="btn-modal">Войти</a>
+            <a href="{% url 'userauth:register' %}" class="btn-modal btn-secondary">Зарегистрироваться</a>
         </div>
     </div>
+</div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'js/home.js' %}"></script>
 {% endblock %}

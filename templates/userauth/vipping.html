@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Получить VIP-статус{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/vipping.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+
+<div class="vip-container">
+    <h1>Станьте VIP-пользователем</h1>
+    <p>Откройте для себя мир эксклюзивных возможностей с VIP-статусом. Произведите оплату и получите доступ к премиальным функциям.</p>
+
+    <p><strong>Преимущества VIP:</strong></p>
+    <ul>
+        <li>Эксклюзивный контент только для VIP-пользователей</li>
+        <li>Расширенные функции в личном кабинете</li>
+        <li>дополнительные функций с работой расходов</li>
+    </ul>
+
+    <div class="price-section">
+        <div class="price-tag">3,400 тг</div>
+
+            <a href="{% url 'userauth:vip_payment_page' %}" class="btn-pay">
+                <span class="btn-text">Оплатить VIP-статус</span>
+            </a>
+    </div>
+
+    <div class="payment-methods">
+        <div class="payment-method">
+            <img src="https://cdn-icons-png.flaticon.com/512/196/196578.png" alt="Kaspi">
+        </div>
+        <div class="payment-method">
+            <img src="https://cdn-icons-png.flaticon.com/512/196/196561.png" alt="Visa">
+        </div>
+        <div class="payment-method">
+            <img src="https://cdn-icons-png.flaticon.com/512/196/196566.png" alt="Mastercard">
+        </div>
+    </div>
+
+    <div class="secure-payment">
+        <i class="fas fa-lock"></i>
+        <span>Безопасная оплата</span>
+    </div>
+</div>
+
+{% endblock %}

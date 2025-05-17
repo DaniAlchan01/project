@@ -14,10 +14,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Приложения проекта
     'main',
     'userauth',
     'SourceProg',
+
+    # Сторонние
+    'widget_tweaks',
 ]
+
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -34,8 +41,8 @@ ROOT_URLCONF = 'mysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, "templates")],  # Добавлен путь к шаблонам!
-        'APP_DIRS': False,
+        'DIRS': [os.path.join(BASE_DIR, "templates")],
+        'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -46,9 +53,6 @@ TEMPLATES = [
         },
     },
 ]
-
-LOGIN_URL = '/login/'
-
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
@@ -64,6 +68,7 @@ DATABASES = {
 }
 
 AUTH_USER_MODEL = "userauth.CustomUser"
+LOGIN_URL = '/login/'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -82,19 +87,16 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 LANGUAGE_CODE = 'ru'
-
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
 USE_TZ = True
 
-# Настройки для статических файлов (CSS, JS, изображения)
+# Статика и медиа
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),  # Добавлено для корректной работы со статикой
-]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

@@ -1,23 +1,42 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Сменить логин</title>
-    <link rel="stylesheet" href="/static/css/formstyle.css">
+    <link rel="stylesheet" href="{% static 'css/formstyle.css' %}">
 </head>
 <body class="auth-body">
     <button class="back-button" onclick="window.history.back();">Назад</button>
     <div class="login-container">
 
-        <!-- Правая часть с формой -->
         <div class="form-container">
             <h2>Сменить логин</h2>
+
+            <!-- Ошибки формы -->
+            {% if form.non_field_errors %}
+                <div class="error-message">
+                    <ul>
+                        {% for error in form.non_field_errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            <!-- Форма смены логина -->
             <form method="post">
                 {% csrf_token %}
                 {{ form.as_p }}
-                <button type="submit">Обновить</button>
+
+                <button type="submit" class="submit-button">Обновить</button>
             </form>
+
+            <!-- Сообщение об успешной смене -->
+            {% if request.GET.success %}
+                <p class="success-message">Логин успешно изменён!</p>
+            {% endif %}
         </div>
     </div>
 </body>

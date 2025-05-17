@@ -1,10 +1,11 @@
+/* account.css */
+
 /* Общие стили */
 .account-container {
     display: flex;
     gap: 40px;
     max-width: 1200px;
-    margin: 100px auto;
-    padding: 20px;
+
     align-items: flex-start;
 }
 
@@ -159,6 +160,110 @@
     top: 2px;
 }
 
+/* Стили для кнопки удаления аккаунта */
+.additional-info .btn-danger {
+    background: #dc3545;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 20px;
+}
+
+.additional-info .btn-danger:hover {
+    background: #c82333;
+}
+
+/* Стили для модального окна */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Полупрозрачный фон */
+    display: flex;
+    justify-content: center; /* Центрируем по горизонтали */
+    align-items: center; /* Центрируем по вертикали */
+    z-index: 1000;
+    overflow: auto; /* Добавляем прокрутку, если контент выходит за пределы */
+    box-sizing: border-box;
+}
+
+.modal-content {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    margin: auto; /* Дополнительно центрируем */
+}
+
+.modal-content h2 {
+    font-size: 26px;
+    color: #0056b3;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 5px;
+}
+
+.modal-content p {
+    font-size: 18px;
+    color: #444;
+    margin-bottom: 20px;
+}
+
+.modal-content textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none;
+    font-size: 16px;
+    color: #333;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.modal-buttons .btn {
+    width: auto; /* Кнопки не растягиваются на всю ширину */
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.modal-buttons .btn-secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.modal-buttons .btn-secondary:hover {
+    background: #5a6268;
+}
+
+.modal-buttons .btn-danger {
+    background: #dc3545;
+    color: white;
+}
+
+.modal-buttons .btn-danger:hover {
+    background: #c82333;
+}
+
 /* Тёмная тема */
 .dark-theme .account-container {
     background: #1e1e1e;
@@ -214,6 +319,50 @@
     background: #18692b;
 }
 
+.dark-theme .additional-info .btn-danger {
+    background: #b8323c;
+}
+
+.dark-theme .additional-info .btn-danger:hover {
+    background: #a02a33;
+}
+
+.dark-theme .modal-content {
+    background: #252525;
+    color: #e0e0e0;
+}
+
+.dark-theme .modal-content h2 {
+    color: #62a5ff;
+    border-bottom-color: #62a5ff;
+}
+
+.dark-theme .modal-content p {
+    color: #e0e0e0;
+}
+
+.dark-theme .modal-content textarea {
+    background: #333;
+    border-color: #555;
+    color: #e0e0e0;
+}
+
+.dark-theme .modal-buttons .btn-secondary {
+    background: #555;
+}
+
+.dark-theme .modal-buttons .btn-secondary:hover {
+    background: #444;
+}
+
+.dark-theme .modal-buttons .btn-danger {
+    background: #b8323c;
+}
+
+.dark-theme .modal-buttons .btn-danger:hover {
+    background: #a02a33;
+}
+
 /* Адаптивность */
 @media (max-width: 768px) {
     .account-container {
@@ -232,5 +381,10 @@
 
     .right-side {
         width: 100%;
+    }
+
+    .modal-content {
+        max-width: 90%;
+        padding: 20px;
     }
 }

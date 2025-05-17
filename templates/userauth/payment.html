@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Оплата VIP-статуса{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/payment.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="payment-container">
+    <h1>Оплата VIP-статуса</h1>
+    <p>Введите данные вашей банковской карты для оплаты VIP-статуса стоимостью <strong>3,400 тг</strong>.</p>
+
+    <form method="post" class="payment-form" novalidate>
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="id_card_number">Номер карты</label>
+            <input type="text" name="card_number" id="id_card_number" maxlength="16" minlength="16" placeholder="1234 5678 9012 3456" pattern="\d{16}" required>
+            <small>Только цифры, 16 символов</small>
+        </div>
+
+        <div class="form-group">
+            <label for="id_cardholder_name">Имя владельца карты</label>
+            <input type="text" name="cardholder_name" id="id_cardholder_name" placeholder="Иван Иванов" required>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group expiry">
+                <label for="id_expiry_date">Срок действия (мм/гг)</label>
+                <input type="text" name="expiry_date" id="id_expiry_date" maxlength="5" minlength="5" placeholder="MM/YY" pattern="(0[1-9]|1[0-2])\/\d{2}" required>
+                <small>Формат MM/YY</small>
+            </div>
+
+            <div class="form-group cvv">
+                <label for="id_cvv">CVV</label>
+                <input type="text" name="cvv" id="id_cvv" maxlength="3" minlength="3" placeholder="123" pattern="\d{3}" required>
+            </div>
+        </div>
+
+        <button type="submit" class="btn-pay">
+            Оплатить 3,400 тг
+            <i class="fas fa-lock"></i>
+        </button>
+    </form>
+</div>
+{% endblock %}

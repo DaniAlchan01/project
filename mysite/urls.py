@@ -5,9 +5,9 @@ from django.conf.urls.static import static
     
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("", include("main.urls")),  # Подключение главной страницы
+    path("", include("main.urls")),
     path("userauth/", include("userauth.urls")),
-    path('expenses/', include('SourceProg.urls')),
+    path('source/', include('SourceProg.urls')),  # Перенёс сюда
 ]
 
 if settings.DEBUG:

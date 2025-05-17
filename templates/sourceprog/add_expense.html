@@ -1,57 +1,135 @@
 {% extends 'base.html' %}
+{% block content %}
 {% load static %}
 
-{% block title %}Добавить расход{% endblock %}
+<link rel="stylesheet" href="{% static 'css/add_expense.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
-{% block content %}
-{% block extra_css %}
-    <link rel="stylesheet" href="{% static 'css/add_expense.css' %}">
-{% endblock %}
-<div class="container">
-    <!-- Верхние кнопки -->
-    <div class="top-buttons">
-        <button class="btn">Статистика диаграмма</button>
-        <button class="btn">История</button>
-    </div>
+<div class="expense-container" data-edit-url="{% url 'SourceProg:edit_category' 0 %}">
 
-    <div class="content">
-        <!-- Категории -->
-        <div class="categories">
-            <button class="category-btn"><span>Еда</span> 🍔</button>
-            <button class="category-btn"><span>Одежда</span> 👕</button>
-            <button class="category-btn"><span>Медицина</span> 💊</button>
-            <button class="category-btn"><span>Транспорт</span> 🚗</button>
-            <button class="category-btn"><span>Развлечения</span> 🎮</button>
-            <button class="category-btn"><span>Образование</span> 📚</button>
-            <button class="category-btn"><span>Коммунальные платежи</span> 💡</button>
-            <button class="category-btn"><span>Подарки</span> 🎁</button>
-            <button class="category-btn"><span>Прочее</span> 🔍</button>
-        </div>
+  <h2>Добавить расход</h2>
+  <hr>
 
-        <!-- Форма (по центру) -->
-        <div class="form-container">
-            <input type="number" placeholder="Введите сумму" class="input-field">
-            <textarea placeholder="Комментарий" class="input-field textarea"></textarea>
+  <div class="mb-3 navigation-buttons">
+    <a href="{% url 'SourceProg:expense_chart' %}" class="btn btn-chart">Диаграмма</a>
+    <a href="{% url 'SourceProg:expense_history' %}" class="btn btn-history">История</a>
 
-            <!-- Кнопка загрузки фото -->
-            <label for="photo-upload" class="photo-upload">
-                (Фото)
-                <img src="{% static 'img/gallery.png' %}" class="photo-upload-size" alt="Фото">
-            </label>
-            <input type="file" id="photo-upload" class="hidden-input" accept="image/*">
-        </div>
+      <a href="javascript:void(0);" class="btn btn-credit">Кредиты</a>
+      <a href="javascript:void(0);" class="btn btn-debt">Долги</a>
+  </div>
 
-        <!-- Блок справа (превью фото и кнопка) -->
-        <div class="photo-section">
-            <div class="photo-preview">
-                <img src="{% static 'img/photo-icon.png' %}" alt="Выбранное фото">
+  {% if form %}
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="form-group category-section">
+        <label for="category">Категория</label>
+        {{ form.category }}
+      </div>
+
+      <div class="form-group">
+        <label for="amount">Введите сумму</label>
+        {{ form.amount }}
+      </div>
+
+      <div  class="form-group">
+        <label  for="comment">Комментарии</label>
+        {{ form.comment }}
+      </div>
+
+      <div class="form-group">
+        <label for="photo">Фото</label>
+        {{ form.photo }}
+      </div>
+
+      <button type="submit" class="btn btn-submit">Добавить</button>
+    </form>
+  {% else %}
+    {% if error_message %}
+      <div class="alert alert-warning">{{ error_message }}</div>
+    {% endif %}
+  {% endif %}
+
+  <div class="category-list">
+    <h4>Мои категории:</h4>
+    <ul class="list-group">
+      {% for category in categories %}
+        {% if category.created_by == user %}
+          <li class="list-group-item" data-category-id="{{ category.id }}" data-name="{{ category.name }}" data-color="{{ category.color }}">
+            <span class="category-name" style="background-color: {{ category.color }}; padding: 2px 6px; border-radius: 4px;">
+              {{ category.name }}
+            </span>
+            <div class="category-actions">
+              <a href="javascript:void(0);" onclick="showEditForm({{ category.id }});" class="btn btn-edit">
+                <i class="fas fa-pencil-alt"></i>
+              </a>
+              <form method="post" action="{% url 'SourceProg:delete_category' category.id %}" style="display:inline;" onsubmit="return confirm('Вы уверены, что хотите удалить эту категорию?');">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-delete">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </form>
             </div>
-            <button class="btn-add">Добавить</button>
-        </div>
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+    {% if not user_has_limit %}
+      <a href="javascript:void(0);" class="btn btn-add-category" id="showCategoryFormButton">
+        <i class="fas fa-plus"></i>
+      </a>
+    {% endif %}
+  </div>
+
+  <!-- Форма добавления новой категории -->
+  {% if not user_has_limit %}
+  <div id="categoryForm" class="hidden">
+    <h4>Новая категория</h4>
+    <form method="post" action="{% url 'SourceProg:add_category' %}">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="name">Название категории</label>
+        <input type="text" class="form-control" id="name" name="name" required>
+      </div>
+      <div class="form-group">
+        <label for="color">Цвет категории</label>
+        <input type="color" class="form-control" id="color" name="color" required>
+      </div>
+      <button type="submit" class="btn btn-create">Создать категорию</button>
+    </form>
+  </div>
+  {% endif %}
+
+  <!-- Форма редактирования категории -->
+  <div id="editCategoryForm" class="hidden">
+    <h4>Редактировать категорию</h4>
+    <form method="post" action="#" id="categoryEditForm">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="edit_name">Название категории</label>
+        <input type="text" class="form-control" id="edit_name" name="name" required>
+      </div>
+      <div class="form-group">
+        <label for="edit_color">Цвет категории</label>
+        <input type="color" class="form-control" id="edit_color" name="color" required>
+      </div>
+      <button type="submit" class="btn btn-save">Сохранить изменения</button>
+    </form>
+  </div>
+
+  {% if user_has_limit %}
+  <div id="categoryLimitWarning" class="alert alert-warning mt-3">
+    <strong>Предупреждение!</strong> Вы достигли лимита на создание категорий. Чтобы создать больше категорий, купите прайм-статус за 3400 тенге.
+    <div class="mt-3">
+      <a href="https://your-payment-link.com" class="btn btn-buy">Купить прайм</a>
+      <a href="javascript:void(0);" onclick="document.getElementById('categoryLimitWarning').style.display='none';" class="btn btn-close">Закрыть</a>
     </div>
+  </div>
+  {% endif %}
+
 </div>
 
+{% endblock %}
 
-<!-- Подключаем JS для предпросмотра фото -->
-<script src="{% static 'js/photo_preview.js' %}" defer></script>
+{% block extra_js %}
+<script src="{% static 'js/add_expense.js' %}"></script>
 {% endblock %}

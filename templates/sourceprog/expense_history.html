@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+
+{% block extra_css %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/expense_history.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="expense-history-container">
+    <h2>История расходов</h2>
+
+    {% if messages %}
+        <div class="alert alert-info">
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <form method="get" class="expense-filter-form">
+        <div class="form-group">
+            <label for="category">Категория</label>
+            <select name="category" id="category" class="form-control">
+                <option value="">Все категории</option>
+                {% for category in categories %}
+                    <option value="{{ category.id }}" {% if category.id|stringformat:'s' == selected_category %}selected{% endif %}>
+                        {{ category.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="search">Поиск по комментариям</label>
+            <input type="text" id="search" name="search" class="form-control" value="{{ search_query }}">
+        </div>
+
+        <div class="form-group">
+            <label for="start_date">Дата с</label>
+            <input type="date" id="start_date" name="start_date" class="form-control" value="{{ start_date }}">
+        </div>
+
+        <div class="form-group">
+            <label for="end_date">Дата по</label>
+            <input type="date" id="end_date" name="end_date" class="form-control" value="{{ end_date }}">
+        </div>
+
+        <button type="submit" class="btn btn-filter">Применить фильтры</button>
+    </form>
+
+    <table class="expense-history-table">
+        <thead>
+            <tr>
+                <th>Дата</th>
+                <th>Категория</th>
+                <th>Сумма</th>
+                <th>Комментарий</th>
+                <th>Фото</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for expense in page_obj %}
+                <tr>
+                    <td>{{ expense.created_at|date:"d.m.Y H:i" }}</td>
+                    <td>{{ expense.category.name }}</td>
+                    <td>{{ expense.amount }}</td>
+                    <td>{{ expense.comment }}</td>
+                    <td>
+                        {% if expense.photo %}
+                            <img src="{{ expense.photo.url }}" alt="Фото расхода" width="100">
+                        {% else %}
+                            Нет фото
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="javascript:void(0);"
+                           onclick="openEditExpenseModal(
+                               {{ expense.id }},
+                               {{ expense.category.id }},
+                               '{{ expense.amount }}',
+                               '{{ expense.comment|escapejs }}',
+                               {% if expense.photo %}'{{ expense.photo.url }}'{% else %}''{% endif %}
+                           );"
+                           class="btn btn-edit">
+                           Редактировать
+                        </a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="6">У вас еще нет расходов.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1&category={{ selected_category }}&search={{ search_query }}&start_date={{ start_date }}&end_date={{ end_date }}">&laquo; Первая</a>
+                <a href="?page={{ page_obj.previous_page_number }}&category={{ selected_category }}&search={{ search_query }}&start_date={{ start_date }}&end_date={{ end_date }}">Предыдущая</a>
+            {% endif %}
+
+            <span class="current">
+                Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}&category={{ selected_category }}&search={{ search_query }}&start_date={{ start_date }}&end_date={{ end_date }}">Следующая</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}&category={{ selected_category }}&search={{ search_query }}&start_date={{ start_date }}&end_date={{ end_date }}">Последняя &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+</div>
+
+<!-- Модальное окно -->
+<div id="editExpenseModal" class="modal">
+    <div class="modal-content">
+    <span class="close" onclick="closeEditExpenseModal()">&times;</span>
+    <h4>Редактировать расход</h4>
+    <form method="post" action="/edit-expense/0/" id="editExpenseForm" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="edit_category">Категория</label>
+            <select name="category" id="edit_category" class="form-control">
+                {% for category in categories %}
+                    <option value="{{ category.id }}">{{ category.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="edit_amount">Сумма</label>
+            <input type="number" id="edit_amount" name="amount" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="edit_comment">Комментарий</label>
+            <input type="text" id="edit_comment" name="comment" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="edit_photo">Фото</label>
+            <input type="file" id="edit_photo" name="photo" class="form-control">
+            <img id="edit_photo_preview" src="" alt="Предпросмотр" class="hidden mt-2 rounded max-h-40">
+        </div>
+        <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px;">
+            <button type="button" class="btn btn-cancel" onclick="closeEditExpenseModal()">Отмена</button>
+            <button type="submit" class="btn btn-save">Сохранить изменения</button>
+        </div>
+    </form>
+</div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/expense_history.js' %}"></script>
+{% endblock %}

@@ -1,39 +1,257 @@
 {% extends 'base.html' %}
 {% load static %}
-<link rel="stylesheet" href="{% static 'css/about.css' %}">
 {% block title %}О платформе{% endblock %}
 
 {% block content %}
-{% block extra_css %}
-    <link rel="stylesheet" href="{% static 'css/about.css' %}">
-{% endblock %}
+<link rel="stylesheet" href="{% static 'css/about.css' %}">
 <section class="about-container">
 
-    <div class="about-block">
-        <h2>О платформе</h2>
-        <p>Наш сервис создан для удобного расчёта финансов. Мы помогаем пользователям управлять бюджетом легко и эффективно.</p>
-        <img src="{% static 'img/about_1.png' %}" alt="Описание платформы">
+    <!-- Слайдер -->
+    <h2>Наши преимущества</h2>
+    <div class="slider-container">
+        <div class="demo-carousel">
+            <div class="carousel-inner">
+                <div class="demo-item">
+                    <img src="{% static 'img/demos.jpeg' %}" alt="Демонстрация 1" class="demo-img">
+                </div>
+                <div class="demo-item">
+                    <img src="{% static 'img/demostr.jpeg' %}" alt="Демонстрация 2" class="demo-img">
+                </div>
+                <div class="demo-item">
+                    <img src="{% static 'img/demost.jpeg' %}" alt="Демонстрация 3" class="demo-img">
+                </div>
+            </div>
+        </div>
     </div>
 
     <hr>
 
-    <div class="about-block">
-        <h2>Возможности</h2>
-        <p>Воспользуйтесь широким функционалом:</p>
-        <ul>
-            <li>📊 Автоматический подсчёт</li>
-            <li>🖥️ Простая визуализация данных</li>
-            <li>✅ Гибкие настройки</li>
-        </ul>
-        <img src="{% static 'img/about_2.png' %}" alt="Функционал платформы">
-    </div>
+<section class="about-sections py-12 bg-gray-100">
+    <div class="container mx-auto px-4 space-y-24">
 
-    <hr>
+        <!-- Секция 1 -->
+        <div class="flex flex-col md:flex-row items-center" data-aos="fade-up">
+            <div class="md:w-1/2 mb-6 md:mb-0">
+                <img src="/static/images/analytics.svg" alt="Аналитика" class="w-full max-w-md mx-auto">
+            </div>
+            <div class="md:w-1/2 text-center md:text-left">
+                <h3 class="text-2xl font-bold mb-4 text-gray-800">Цифровая платформа нового уровня</h3>
+                <p class="text-lg text-gray-700">
+                    4Count — это единое пространство для управления всеми аспектами ваших финансов. Простая и интуитивно понятная платформа заменяет десятки таблиц, заметок и приложений.
+                </p>
+            </div>
+        </div>
 
-    <div class="about-block">
-        <h2>Как начать?</h2>
-        <p>Пройдите регистрацию и начните работать с финансами в пару кликов!</p>
-        <img src="{% static 'img/about_3.png' %}" alt="Как начать">
+        <!-- Секция 2 -->
+        <div class="flex flex-col-reverse md:flex-row items-center" data-aos="fade-up" data-aos-delay="200">
+            <div class="md:w-1/2 text-center md:text-left">
+                <h3 class="text-2xl font-bold mb-4 text-gray-800">Учёт без лишней суеты</h3>
+                <p class="text-lg text-gray-700">
+                    Расходы, доходы, долги и кредиты — всё под контролем. Выстраивайте расписание, создавайте категории, отслеживайте регулярные списания и анализируйте, куда уходят деньги.
+                </p>
+            </div>
+            <div class="md:w-1/2 mb-6 md:mb-0">
+                <img src="/static/images/management.svg" alt="Управление" class="w-full max-w-md mx-auto">
+            </div>
+        </div>
+
+        <!-- Секция 3 -->
+        <div class="flex flex-col md:flex-row items-center" data-aos="fade-up" data-aos-delay="400">
+            <div class="md:w-1/2 mb-6 md:mb-0">
+                <img src="/static/images/goal.svg" alt="Финансовые цели" class="w-full max-w-md mx-auto">
+            </div>
+            <div class="md:w-1/2 text-center md:text-left">
+                <h3 class="text-2xl font-bold mb-4 text-gray-800">Достигайте своих целей</h3>
+                <p class="text-lg text-gray-700">
+                    Устанавливайте цели и следите за прогрессом. Платформа мотивирует на финансовую дисциплину, помогая двигаться вперёд шаг за шагом.
+                </p>
+            </div>
+        </div>
+
     </div>
 </section>
+
+    <hr>
+
+    <!-- Преимущества -->
+    <div class="about-block">
+        <h2>Преимущества</h2>
+        <p>С нашей платформой вы получаете несколько ключевых преимуществ:</p>
+
+        <div class="image-triangle">
+            <div class="row top-row">
+                <div class="triangle-image">
+                    <img src="{% static 'img/hamburger.png' %}" alt="Преимущество 1">
+                    <p>Преимущество 1: Легкость в использовании</p>
+                </div>
+            </div>
+            <div class="row bottom-row">
+                <div class="triangle-image">
+                    <img src="{% static 'img/laundry.png' %}" alt="Преимущество 2">
+                    <p>Преимущество 2: Полный контроль над вашими финансами</p>
+                </div>
+                <div class="triangle-image">
+                    <img src="{% static 'img/medical.png' %}" alt="Преимущество 3">
+                    <p>Преимущество 3: Безопасность ваших данных</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Демо-режим -->
+    <div class="about-block">
+        <h2>Демо-режим</h2>
+        <p>Посмотрите демонстрацию нашего сервиса в действии.</p>
+        <div class="demo-video">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/38fqEA482Wo" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Безопасность -->
+    <div class="about-block">
+        <h2>Безопасность</h2>
+        <p>Мы прилагаем максимум усилий для защиты ваших данных. Наши системы безопасности соответствуют самым высоким стандартам, чтобы вы могли быть уверены в сохранности своей информации.</p>
+    </div>
+
+    <hr>
+
+    <!-- FAQ -->
+    <div class="about-block">
+        <h2>FAQ</h2>
+        <ul>
+            <li><strong>Как начать использовать платформу?</strong> Просто зарегистрируйтесь и начните отслеживать свои расходы.</li>
+            <li><strong>Какие способы оплаты доступны?</strong> Мы поддерживаем несколько популярных способов оплаты, включая кредитные карты и PayPal.</li>
+            <li><strong>Как обеспечить безопасность своих данных?</strong> Мы используем шифрование данных и многослойную защиту для предотвращения несанкционированного доступа.</li>
+        </ul>
+    </div>
+
+    <hr>
+
+    <!-- Советы по финансовой грамотности -->
+    <div class="about-block">
+        <h2>Советы по финансовой грамотности</h2>
+        <p>Подпишитесь на наш канал в <a href="https://t.me/your_telegram_channel" target="_blank">Telegram</a> для получения полезных советов и статей по финансовой грамотности.</p>
+    </div>
+
+    <hr>
+
+    <!-- Отзывы -->
+    <div class="about-block">
+        <h2>Отзывы</h2>
+        <p>Посмотрите, что говорят наши пользователи:</p>
+
+        <!-- Форма для добавления отзыва -->
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}  <!-- Поля формы для отзыва -->
+            <button type="submit">Оставить отзыв</button>
+        </form>
+
+        {% for review in reviews %}
+        <div class="review">
+            <div class="review-header">
+                <img src="{{ review.user.avatar.url }}" alt="аватар" width="30" height="30" style="border-radius: 4px;">
+                <strong>{{ review.user.username }}</strong>
+                <small>{{ review.user.status }}</small>
+            </div>
+
+            <div class="review-stars">
+                {% for i in "12345"|make_list %}
+                    {% if forloop.counter <= review.rating %}
+                        <img src="{% static 'img/star.png' %}" alt="звезда" width="12" height="12">
+                    {% else %}
+                        <img src="{% static 'img/star1.png' %}" alt="☆" width="12" height="12">
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <p>{{ review.text }}</p>
+
+            <div class="review-actions">
+                {% if request.user == review.user or request.user.is_superuser %}
+                    <!-- Удаление с подтверждением -->
+                    <button onclick="confirmDelete({{ review.id }})">🗑️ Удалить</button>
+                {% endif %}
+                <!-- Лайк -->
+                <button id="like-button-{{ review.id }}" onclick="likeReview({{ review.id }})">
+                    👍 <span id="likes-count-{{ review.id }}">{{ review.total_likes }}</span>
+                </button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Модальное окно для удаления отзыва -->
+<div id="deleteModal" class="modal" style="display:none;">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Вы уверены, что хотите удалить этот отзыв?</h2>
+        <form id="deleteForm" method="POST" action="">
+            {% csrf_token %}
+            <button type="submit">Удалить</button>
+            <button type="button" onclick="closeModal()">Отмена</button>
+        </form>
+    </div>
+</div>
+
+<script src="{% static 'js/about.js' %}"></script>
+<script src="{% static 'js/home.js' %}"></script>
+
+<script>
+    // Функция для подтверждения удаления отзыва
+    function confirmDelete(reviewId) {
+        const modal = document.getElementById('deleteModal');
+        const form = document.getElementById('deleteForm');
+        if (!modal || !form) return;
+
+        // Обновляем action формы с id отзыва
+        form.action = `/reviews/delete/${reviewId}/`;
+
+        // Показываем модальное окно
+        modal.style.display = 'block';
+    }
+
+    // Закрытие модального окна
+    function closeModal() {
+        const modal = document.getElementById('deleteModal');
+        modal.style.display = 'none';
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+    const carousel = document.querySelector('.demo-carousel .carousel-inner');
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    carousel.addEventListener('mousedown', (e) => {
+        isDown = true;
+        carousel.style.cursor = 'grabbing';
+        startX = e.pageX - carousel.offsetLeft;
+        scrollLeft = carousel.scrollLeft;
+    });
+
+    carousel.addEventListener('mouseleave', () => {
+        isDown = false;
+        carousel.style.cursor = 'grab';
+    });
+
+    carousel.addEventListener('mouseup', () => {
+        isDown = false;
+        carousel.style.cursor = 'grab';
+    });
+
+    carousel.addEventListener('mousemove', (e) => {
+        if(!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - carousel.offsetLeft;
+        const walk = (x - startX) * 2; // Умножаем для более быстрого скролла
+        carousel.scrollLeft = scrollLeft - walk;
+    });
+});
+</script>
+
 {% endblock %}
