@@ -67,7 +67,6 @@ DATABASES = {
     }
 }
 
-
 AUTH_USER_MODEL = "userauth.CustomUser"
 LOGIN_URL = '/login/'
 

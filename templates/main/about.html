@@ -6,67 +6,71 @@
 <link rel="stylesheet" href="{% static 'css/about.css' %}">
 <section class="about-container">
 
-    <!-- Слайдер -->
-    <h2>Наши преимущества</h2>
-    <div class="slider-container">
-        <div class="demo-carousel">
-            <div class="carousel-inner">
-                <div class="demo-item">
-                    <img src="{% static 'img/demos.jpeg' %}" alt="Демонстрация 1" class="demo-img">
-                </div>
-                <div class="demo-item">
-                    <img src="{% static 'img/demostr.jpeg' %}" alt="Демонстрация 2" class="demo-img">
-                </div>
-                <div class="demo-item">
-                    <img src="{% static 'img/demost.jpeg' %}" alt="Демонстрация 3" class="demo-img">
-                </div>
+<h2>Наши преимущества</h2>
+<div class="slider-container">
+    <div class="demo-carousel">
+        <button class="nav-btn prev-btn">&lt;</button>
+        <div class="carousel-inner">
+            <div class="demo-item">
+                <img src="{% static 'img/demos.jpeg' %}" alt="Демонстрация 1" class="demo-img">
+            </div>
+            <div class="demo-item">
+                <img src="{% static 'img/demostr.jpeg' %}" alt="Демонстрация 2" class="demo-img">
+            </div>
+            <div class="demo-item">
+                <img src="{% static 'img/demost.jpeg' %}" alt="Демонстрация 3" class="demo-img">
             </div>
         </div>
+        <button class="nav-btn next-btn">&gt;</button>
     </div>
+    <div class="slider-dots"></div>
+</div>
 
     <hr>
 
-<section class="about-sections py-12 bg-gray-100">
-    <div class="container mx-auto px-4 space-y-24">
+<section class="about-sections">
+    <div class="container">
 
         <!-- Секция 1 -->
-        <div class="flex flex-col md:flex-row items-center" data-aos="fade-up">
-            <div class="md:w-1/2 mb-6 md:mb-0">
-                <img src="/static/images/analytics.svg" alt="Аналитика" class="w-full max-w-md mx-auto">
+        <div class="section" data-aos="fade-up">
+            <div class="image-container">
+                <img src="image1.jpg" alt="Аналитика">
             </div>
-            <div class="md:w-1/2 text-center md:text-left">
-                <h3 class="text-2xl font-bold mb-4 text-gray-800">Цифровая платформа нового уровня</h3>
-                <p class="text-lg text-gray-700">
-                    4Count — это единое пространство для управления всеми аспектами ваших финансов. Простая и интуитивно понятная платформа заменяет десятки таблиц, заметок и приложений.
-                </p>
+            <div class="content-half">
+                <h3>Заголовок 1</h3>
+                <p>Текст секции 1...</p>
             </div>
         </div>
 
         <!-- Секция 2 -->
-        <div class="flex flex-col-reverse md:flex-row items-center" data-aos="fade-up" data-aos-delay="200">
-            <div class="md:w-1/2 text-center md:text-left">
-                <h3 class="text-2xl font-bold mb-4 text-gray-800">Учёт без лишней суеты</h3>
-                <p class="text-lg text-gray-700">
-                    Расходы, доходы, долги и кредиты — всё под контролем. Выстраивайте расписание, создавайте категории, отслеживайте регулярные списания и анализируйте, куда уходят деньги.
-                </p>
+        <div class="section" data-aos="fade-up" data-aos-delay="200">
+            <div class="image-container">
+                <img src="image2.jpg" alt="Управление">
             </div>
-            <div class="md:w-1/2 mb-6 md:mb-0">
-                <img src="/static/images/management.svg" alt="Управление" class="w-full max-w-md mx-auto">
+            <div class="content-half">
+                <h3>Заголовок 2</h3>
+                <p>Текст секции 2...</p>
             </div>
         </div>
 
         <!-- Секция 3 -->
-        <div class="flex flex-col md:flex-row items-center" data-aos="fade-up" data-aos-delay="400">
-            <div class="md:w-1/2 mb-6 md:mb-0">
-                <img src="/static/images/goal.svg" alt="Финансовые цели" class="w-full max-w-md mx-auto">
+        <div class="section" data-aos="fade-up" data-aos-delay="400">
+            <div class="image-container">
+                <img src="image3.jpg" alt="Цели">
             </div>
-            <div class="md:w-1/2 text-center md:text-left">
-                <h3 class="text-2xl font-bold mb-4 text-gray-800">Достигайте своих целей</h3>
-                <p class="text-lg text-gray-700">
-                    Устанавливайте цели и следите за прогрессом. Платформа мотивирует на финансовую дисциплину, помогая двигаться вперёд шаг за шагом.
-                </p>
+            <div class="content-half">
+                <h3>Заголовок 3</h3>
+                <p>Текст секции 3...</p>
             </div>
         </div>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 800,
+    once: true
+  });
+</script>
 
     </div>
 </section>
@@ -100,35 +104,52 @@
 
     <hr>
 
-    <!-- Демо-режим -->
-    <div class="about-block">
-        <h2>Демо-режим</h2>
-        <p>Посмотрите демонстрацию нашего сервиса в действии.</p>
-        <div class="demo-video">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/38fqEA482Wo" frameborder="0" allowfullscreen></iframe>
+    <!-- Демо-секция -->
+    <div class="demo-section">
+        <div class="demo-content">
+            <h2 class="demo-title">Демо-режим</h2>
+            <p class="demo-description">Посмотрите демонстрацию нашего сервиса в действии. Ознакомьтесь с интерфейсом и основными функциями платформы в интерактивном формате.</p>
+        </div>
+        
+        <div class="demo-video-container">
+            <div class="video-wrapper">
+                <iframe src="https://www.youtube.com/embed/38fqEA482Wo" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                </iframe>
+            </div>
         </div>
     </div>
 
     <hr>
 
-    <!-- Безопасность -->
-    <div class="about-block">
-        <h2>Безопасность</h2>
-        <p>Мы прилагаем максимум усилий для защиты ваших данных. Наши системы безопасности соответствуют самым высоким стандартам, чтобы вы могли быть уверены в сохранности своей информации.</p>
-    </div>
-
-    <hr>
-
-    <!-- FAQ -->
-    <div class="about-block">
-        <h2>FAQ</h2>
-        <ul>
-            <li><strong>Как начать использовать платформу?</strong> Просто зарегистрируйтесь и начните отслеживать свои расходы.</li>
-            <li><strong>Какие способы оплаты доступны?</strong> Мы поддерживаем несколько популярных способов оплаты, включая кредитные карты и PayPal.</li>
-            <li><strong>Как обеспечить безопасность своих данных?</strong> Мы используем шифрование данных и многослойную защиту для предотвращения несанкционированного доступа.</li>
+    <div class="security-block">
+        <h2 class="security-title">Безопасность данных — наш главный приоритет</h2>
+        
+        <p class="security-text">
+            В цифровую эпоху защита информации становится критически важной. Мы используем многоуровневую систему безопасности, 
+            сочетающую передовые технологии и строгие протоколы обработки данных. Ежегодно наши системы проходят независимый аудит 
+            по стандартам ISO 27001 и PCI DSS.
+        </p>
+        
+        <ul class="security-list">
+            <li>256-битное SSL-шифрование данных</li>
+            <li>Двухфакторная аутентификация</li>
+            <li>Защита от DDoS-атак</li>
+            <li>Ежедневное резервное копирование</li>
+            <li>Сертифицированные дата-центры Tier III</li>
+            <li>Система обнаружения вторжений (IDS/IPS)</li>
+            <li>Регулярные пентесты безопасности</li>
+            <li>Соблюдение GDPR требований</li>
         </ul>
+        
+        <p class="security-text">
+            Все операции защищены банковским уровнем безопасности. Мы никогда не храним платежные реквизиты, 
+            а для авторизации используем токенизацию данных. Круглосуточный мониторинг и мгновенное реагирование 
+            на любые подозрительные активности гарантируют вашу полную защиту.
+        </p>
     </div>
-
     <hr>
 
     <!-- Советы по финансовой грамотности -->
@@ -221,36 +242,55 @@
         const modal = document.getElementById('deleteModal');
         modal.style.display = 'none';
     }
-    document.addEventListener('DOMContentLoaded', function() {
-    const carousel = document.querySelector('.demo-carousel .carousel-inner');
-    let isDown = false;
-    let startX;
-    let scrollLeft;
+document.addEventListener('DOMContentLoaded', function() {
+    const carouselInner = document.querySelector('.carousel-inner');
+    const sliderDots = document.querySelector('.slider-dots');
+    const prevBtn = document.querySelector('.prev-btn');
+    const nextBtn = document.querySelector('.next-btn');
+    const items = document.querySelectorAll('.demo-item');
+    let currentIndex = 0;
 
-    carousel.addEventListener('mousedown', (e) => {
-        isDown = true;
-        carousel.style.cursor = 'grabbing';
-        startX = e.pageX - carousel.offsetLeft;
-        scrollLeft = carousel.scrollLeft;
+    // Создание точек навигации
+    items.forEach((_, index) => {
+        const dot = document.createElement('div');
+        dot.className = 'slider-dot';
+        if(index === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => goToSlide(index));
+        sliderDots.appendChild(dot);
     });
 
-    carousel.addEventListener('mouseleave', () => {
-        isDown = false;
-        carousel.style.cursor = 'grab';
+    // Переход к слайду
+    function goToSlide(index) {
+        currentIndex = Math.max(0, Math.min(index, items.length - 1));
+        carouselInner.scrollTo({
+            left: items[currentIndex].offsetLeft,
+            behavior: 'smooth'
+        });
+        updateDots();
+    }
+
+    // Обновление точек
+    function updateDots() {
+        document.querySelectorAll('.slider-dot').forEach((dot, i) => {
+            dot.classList.toggle('active', i === currentIndex);
+        });
+    }
+
+    // Обработчики кнопок
+    prevBtn.addEventListener('click', () => {
+        if(currentIndex > 0) {
+            goToSlide(currentIndex - 1);
+        }
     });
 
-    carousel.addEventListener('mouseup', () => {
-        isDown = false;
-        carousel.style.cursor = 'grab';
+    nextBtn.addEventListener('click', () => {
+        if(currentIndex < items.length - 1) {
+            goToSlide(currentIndex + 1);
+        }
     });
 
-    carousel.addEventListener('mousemove', (e) => {
-        if(!isDown) return;
-        e.preventDefault();
-        const x = e.pageX - carousel.offsetLeft;
-        const walk = (x - startX) * 2; // Умножаем для более быстрого скролла
-        carousel.scrollLeft = scrollLeft - walk;
-    });
+    // Инициализация
+    updateDots();
 });
 </script>
 
