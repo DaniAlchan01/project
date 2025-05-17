@@ -59,13 +59,14 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'projectDB',
+        'NAME': 'new_projectDB',
         'USER': 'postgres',
-        'PASSWORD': 'Danaltask200307',
+        'PASSWORD': 'super',
         'HOST': 'localhost',
         'PORT': '5432',
     }
 }
+
 
 AUTH_USER_MODEL = "userauth.CustomUser"
 LOGIN_URL = '/login/'
