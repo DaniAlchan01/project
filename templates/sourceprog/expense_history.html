@@ -74,17 +74,23 @@
                         {% endif %}
                     </td>
                     <td>
-                        <a href="javascript:void(0);"
-                           onclick="openEditExpenseModal(
-                               {{ expense.id }},
-                               {{ expense.category.id }},
-                               '{{ expense.amount }}',
-                               '{{ expense.comment|escapejs }}',
-                               {% if expense.photo %}'{{ expense.photo.url }}'{% else %}''{% endif %}
-                           );"
-                           class="btn btn-edit">
-                           Редактировать
+                        <a href="#"
+                        onclick="openEditExpenseModal(
+                            {{ expense.id }},
+                            {{ expense.category.id }},
+                            '{{ expense.amount }}',
+                            '{{ expense.comment|escapejs }}',
+                            {% if expense.photo %}'{{ expense.photo.url }}'{% else %}''{% endif %}
+                        ); return false;"
+                        class="btn btn-edit">
+                        Редактировать
                         </a>
+                        <form action="{% url 'SourceProg:delete_expense' expense.id %}"
+                            method="post"
+                            style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-link">Удалить</button>
+                        </form>
                     </td>
                 </tr>
             {% empty %}
@@ -119,7 +125,7 @@
     <div class="modal-content">
     <span class="close" onclick="closeEditExpenseModal()">&times;</span>
     <h4>Редактировать расход</h4>
-    <form method="post" action="/edit-expense/0/" id="editExpenseForm" enctype="multipart/form-data">
+    <form method="post" action="{% url 'SourceProg:edit_expense' 0 %}" id="editExpenseForm" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="form-group">
             <label for="edit_category">Категория</label>

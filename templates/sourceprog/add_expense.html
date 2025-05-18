@@ -14,8 +14,8 @@
     <a href="{% url 'SourceProg:expense_chart' %}" class="btn btn-chart">Диаграмма</a>
     <a href="{% url 'SourceProg:expense_history' %}" class="btn btn-history">История</a>
 
-      <a href="javascript:void(0);" class="btn btn-credit">Кредиты</a>
-      <a href="javascript:void(0);" class="btn btn-debt">Долги</a>
+      <a href="{% url 'SourceProg:credits' %}" class="btn btn-chart">Кредиты</a>
+      <a href="{% url 'SourceProg:debts' %}" class="btn btn-chart">Долги</a>
   </div>
 
   {% if form %}

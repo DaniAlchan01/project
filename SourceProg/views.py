@@ -159,3 +159,19 @@ def edit_expense(request, expense_id):
         form = ExpenseEditForm(instance=expense)
 
     return render(request, 'sourceprog/edit_expense.html', {'form': form})
+
+def delete_expense(request, expense_id):
+    expense = get_object_or_404(Expense, id=expense_id, user=request.user)
+
+    if request.method == 'POST':
+        expense.delete()
+        messages.success(request, 'Расход успешно удалён!')
+        return redirect('SourceProg:expense_history')
+
+@login_required
+def credits_view(request):
+    return render(request, 'sourceprog/credits.html')
+
+@login_required
+def debts_view(request):
+    return render(request, 'sourceprog/debts.html')
