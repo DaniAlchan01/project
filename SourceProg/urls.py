@@ -14,6 +14,10 @@ urlpatterns = [
     path('delete-expense/<int:expense_id>/', views.delete_expense,name='delete_expense'),
 
     path('credits/', views.credits_view, name='credits'),
+    path('credits/<int:credit_id>/pay/', views.pay_credit_view, name='pay_credit'),
+    path('credits/<int:credit_id>/edit/', views.edit_credit_view, name='edit_credit'),
+    path('credits/<int:credit_id>/delete/', views.delete_credit_view, name='delete_credit'),
+
     path('debts/', views.debts_view, name='debts'),
 
     path('expense-chart/', views.expense_chart_view, name='expense_chart'),

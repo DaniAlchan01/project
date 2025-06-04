@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="credits-container">
+    <h2>Редактировать кредит: {{ credit.name }}</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-submit">Сохранить изменения</button>
+        <a href="{% url 'SourceProg:credits' %}" class="btn btn-back">Отмена</a>
+    </form>
+</div>
+{% endblock %}

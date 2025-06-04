@@ -7,6 +7,7 @@
     <meta name="description" content="Управляйте своими расходами и финансами с удобной платформой учета трат.">
     <title>{% block title %}Мой сайт{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/homestyle.css' %}">
+    <link rel="icon" href="{% static 'img/icon.ico' %}">
     <!-- Добавляем блок для дополнительных стилей -->
     {% block extra_css %}{% endblock %}
 </head>
@@ -67,6 +68,48 @@
             </p>
         </div>
     {% endif %}
+
+    {% block footer %}
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-brand">
+            <h2>4Count</h2>
+            <p>Управляйте своими финансами легко и эффективно.</p>
+        </div>
+
+        <div class="footer-links">
+            <div>
+                <h3>Навигация</h3>
+                <ul>
+                    <li><a href="{% url 'main:home' %}">Главная</a></li>
+                    <li><a href="{% url 'main:about' %}">О платформе</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3>Профиль</h3>
+                <ul>
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'main:account' %}">Личный кабинет</a></li>
+                    {% else %}
+                        <li><a href="{% url 'userauth:login' %}">Войти</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+            <div>
+                <h3>Контакты</h3>
+                <ul>
+                    <li><a href="mailto:support@4count.kz">support@4count.kz</a></li>
+                    <li><a href="tel:+77001234567">+7 (700) 123-45-67</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2025 4Count. Все права защищены.</p>
+    </div>
+</footer>
+
+    {% endblock %}
 
 
 

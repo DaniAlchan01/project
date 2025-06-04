@@ -2,10 +2,12 @@ from django.contrib import messages
 from django.http import HttpResponseForbidden
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Category, Expense
-from .forms import ExpenseForm, CategoryForm, ExpenseEditForm
+from .models import Category, Expense, Credit, CreditPayment
+from .forms import ExpenseForm, CategoryForm, ExpenseEditForm, CreditForm
 from django.db.models import Q
 from django.core.paginator import Paginator
+from django.utils.timezone import now
+from decimal import Decimal
 
 @login_required
 def add_expense_view(request):
@@ -170,7 +172,91 @@ def delete_expense(request, expense_id):
 
 @login_required
 def credits_view(request):
-    return render(request, 'sourceprog/credits.html')
+    credits = Credit.objects.filter(user=request.user)
+    credit_data = []
+    for credit in credits:
+        paid_count = credit.payments.count()
+        paid_sum = credit.monthly_payment * paid_count
+        remaining = credit.amount - paid_sum
+        last_payment = credit.payments.last()
+        paid_this_month = last_payment and last_payment.payment_date.year == now().year and last_payment.payment_date.month == now().month
+
+        credit_data.append({
+            'credit': credit,
+            'paid_count': paid_count,
+            'paid_sum': paid_sum,
+            'remaining': remaining,
+            'paid_this_month': paid_this_month
+        })
+
+    form = CreditForm()
+    if request.method == 'POST':
+        form = CreditForm(request.POST)
+        if form.is_valid():
+            credit = form.save(commit=False)
+            credit.user = request.user
+            credit.save()
+            messages.success(request, 'Кредит успешно добавлен!')
+            return redirect('SourceProg:credits')
+        else:
+            messages.error(request, 'Форма содержит ошибки.')
+
+    return render(request, 'sourceprog/credits.html', {
+        'credit_form': form,
+        'credits_data': credit_data,
+    })
+
+@login_required
+def pay_credit_view(request, credit_id):
+    credit = get_object_or_404(Credit, id=credit_id, user=request.user)
+    
+    today = now().date()
+    already_paid = credit.payments.filter(
+        payment_date__year=today.year,
+        payment_date__month=today.month
+    ).exists()
+
+    if already_paid:
+        messages.info(request, 'Вы уже оплатили кредит в этом месяце.')
+    else:
+        CreditPayment.objects.create(credit=credit)
+        messages.success(request, 'Оплата за этот месяц успешно зафиксирована.')
+
+    return redirect('SourceProg:credits')
+
+@login_required
+def edit_credit_view(request, credit_id):
+    credit = get_object_or_404(Credit, id=credit_id, user=request.user)
+
+    if request.method == 'POST':
+        form = CreditForm(request.POST, instance=credit)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Кредит успешно обновлён.')
+            return redirect('SourceProg:credits')
+        else:
+            messages.error(request, 'Ошибка в форме.')
+    else:
+        form = CreditForm(instance=credit)
+
+    return render(request, 'sourceprog/edit_credit.html', {
+        'form': form,
+        'credit': credit
+    })
+
+@login_required
+def delete_credit_view(request, credit_id):
+    credit = get_object_or_404(Credit, id=credit_id, user=request.user)
+
+    if request.method == 'POST':
+        credit.delete()
+        messages.success(request, 'Кредит успешно удалён.')
+        return redirect('SourceProg:credits')
+
+    return render(request, 'sourceprog/delete_credit_confirm.html', {
+        'credit': credit
+    })
+
 
 @login_required
 def debts_view(request):

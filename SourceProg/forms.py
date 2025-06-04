@@ -1,5 +1,5 @@
 from django import forms
-from .models import Category, Expense
+from .models import Category, Expense, Credit
 
 
 class CategoryForm(forms.ModelForm):
@@ -42,3 +42,16 @@ class ExpenseEditForm(forms.ModelForm):
         if amount <= 0:
             raise forms.ValidationError('Сумма расхода должна быть положительной.')
         return amount
+
+class CreditForm(forms.ModelForm):
+    class Meta:
+        model = Credit
+        fields = ['name', 'amount', 'interest_rate', 'term_months', 'monthly_payment', 'start_date']
+        labels = {
+            'name': 'Название кредита',
+            'amount': 'Сумма кредита',
+            'interest_rate': 'Процентная ставка (%)',
+            'term_months': 'Срок (в месяцах)',
+            'monthly_payment': 'Ежемесячный платёж',
+            'start_date': 'Дата начала',
+        }

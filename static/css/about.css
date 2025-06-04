@@ -619,3 +619,45 @@ hr {
   text-align: center;
 }
 
+/* Общие стили для футера */
+footer {
+    background-color: #333; /* Темный фон */
+    color: #f8f9fa; /* Светлый текст */
+    padding: 20px;
+    text-align: center;
+}
+
+/* Заголовок футера */
+footer h1 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+/* Список ссылок в футере */
+footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+footer ul li a {
+    color: #f8f9fa;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+footer ul li a:hover {
+    color: #17a2b8; /* Цвет при наведении */
+}
+
+/* Адаптивность для маленьких экранов */
+@media (max-width: 600px) {
+    footer ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+}

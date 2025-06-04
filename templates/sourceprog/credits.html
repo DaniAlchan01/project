@@ -1,2 +1,64 @@
 {% extends 'base.html' %}
 {% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/credits.css' %}">
+
+<div class="credits-container">
+    <div class="header-bar">
+        <h2>Мои кредиты</h2>
+        <a href="#" class="btn btn-add" id="toggle-form">+ Добавить кредит</a>
+    </div>
+    
+        <a href="{% url 'SourceProg:add_expense' %}">Назад</a>
+
+    <div class="add-credit-form" id="credit-form">
+        <form method="post">
+            {% csrf_token %}
+            {{ credit_form.as_p }}
+            <button type="submit" class="btn btn-submit">Добавить</button>
+        </form>
+    </div>
+
+    <div class="credit-list">
+        {% for item in credits_data %}
+        <div class="credit-card">
+            <div class="credit-header">
+                <div class="credit-title">{{ item.credit.name }}</div>
+                <div class="credit-actions">
+                    {% if item.paid_this_month %}
+                        <span class="badge paid">Оплачено</span>
+                    {% else %}
+                        <a href="{% url 'SourceProg:pay_credit' item.credit.id %}" class="btn btn-pay">Оплатить</a>
+                    {% endif %}
+                    <a href="{% url 'SourceProg:edit_credit' item.credit.id %}" class="btn btn-edit">Редактировать</a>
+                    <a href="{% url 'SourceProg:delete_credit' item.credit.id %}" class="btn btn-delete">Удалить</a>
+                </div>
+            </div>
+
+            <div class="credit-body">
+                <p><strong>Сумма кредита:</strong> {{ item.credit.amount }}</p>
+                <p><strong>Срок:</strong> {{ item.credit.term_months }} мес.</p>
+                <p><strong>Выплачено:</strong> {{ item.paid_count }} / {{ item.credit.term_months }}</p>
+                <p><strong>Остаток:</strong> {{ item.remaining }}</p>
+                <p><strong>Ежемесячный платёж:</strong> {{ item.credit.monthly_payment }}</p>
+            </div>
+        </div>
+        {% empty %}
+        <p>У вас пока нет активных кредитов.</p>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const toggleBtn = document.getElementById("toggle-form");
+    const form = document.getElementById("credit-form");
+
+    toggleBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        form.classList.toggle("active");
+    });
+});
+</script>
+{% endblock %}

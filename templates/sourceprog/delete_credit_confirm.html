@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="credits-container">
+    <h2>Удалить кредит</h2>
+    <p>Вы уверены, что хотите удалить кредит <strong>{{ credit.name }}</strong>?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Удалить</button>
+        <a href="{% url 'SourceProg:credits' %}" class="btn btn-back">Отмена</a>
+    </form>
+</div>
+{% endblock %}

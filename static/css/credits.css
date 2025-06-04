@@ -1,0 +1,137 @@
+.credits-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 30px;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.07);
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-add {
+    background-color: #3498db;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.add-credit-form {
+    background-color: #f4f6f8;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 25px 0;
+    border: 1px solid #dcdde1;
+}
+
+.btn-submit {
+    background-color: #2ecc71;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.credit-list {
+    margin-top: 20px;
+}
+
+.credit-card {
+    border: 1px solid #e1e1e1;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #fafafa;
+}
+
+.credit-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.credit-body p {
+    margin: 4px 0;
+}
+
+.badge.paid {
+    background-color: #27ae60;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 6px;
+}
+
+.btn-pay {
+    background-color: #2980b9;
+    color: white;
+    padding: 6px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+}
+.add-credit-form {
+    background-color: #f4f6f8;
+    padding: 0 20px;
+    border-radius: 10px;
+    margin: 20px 0;
+    border: 1px solid #dcdde1;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.5s ease, opacity 0.4s ease;
+}
+
+.add-credit-form.active {
+    padding: 20px;
+    max-height: 1000px; 
+    opacity: 1;
+}
+.credit-title {
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
+.credit-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.btn-pay {
+    background-color: #27ae60;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+.btn-edit {
+    background-color: #f39c12;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+.btn-delete {
+    background-color: #e74c3c;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+.btn-pay:hover { background-color: #1e8449; }
+.btn-edit:hover { background-color: #d68910; }
+.btn-delete:hover { background-color: #c0392b; }
