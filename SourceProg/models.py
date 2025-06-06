@@ -44,3 +44,19 @@ class CreditPayment(models.Model):
 
     def __str__(self):
         return f'{self.credit.name} оплачено {self.payment_date}'
+
+class Debt(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    direction = models.CharField(  
+        max_length=10,
+        choices=[('i_owe', 'Я должен'), ('they_owe', 'Мне должны')]
+    , default='they_owe')
+    name = models.CharField("Имя", max_length=255, default=" ")  
+    amount = models.DecimalField("Сумма", max_digits=10, decimal_places=2)
+    taken_date = models.DateField("Дата взятия")
+    due_date = models.DateField("Дата возврата")
+    is_closed = models.BooleanField("Закрыт?", default=False)
+    closed_date = models.DateField("Дата закрытия", null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.name} — {self.amount}₸"

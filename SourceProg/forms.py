@@ -1,5 +1,5 @@
 from django import forms
-from .models import Category, Expense, Credit
+from .models import Category, Expense, Credit, Debt
 
 
 class CategoryForm(forms.ModelForm):
@@ -54,4 +54,16 @@ class CreditForm(forms.ModelForm):
             'term_months': 'Срок (в месяцах)',
             'monthly_payment': 'Ежемесячный платёж',
             'start_date': 'Дата начала',
+        }
+
+class DebtForm(forms.ModelForm):
+    class Meta:
+        model = Debt
+        fields = ['direction', 'name', 'amount', 'taken_date', 'due_date']
+        labels = {
+            'direction': 'Тип долга',
+            'name': 'Имя',
+            'amount': 'Сумма',
+            'taken_date': 'Дата взятия',
+            'due_date': 'Дата возврата',
         }

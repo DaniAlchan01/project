@@ -9,14 +9,6 @@
 <div class="expense-history-container">
     <h2>История расходов</h2>
 
-    {% if messages %}
-        <div class="alert alert-info">
-            {% for message in messages %}
-                <p>{{ message }}</p>
-            {% endfor %}
-        </div>
-    {% endif %}
-
     <form method="get" class="expense-filter-form">
         <div class="form-group">
             <label for="category">Категория</label>

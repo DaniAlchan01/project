@@ -19,6 +19,9 @@ urlpatterns = [
     path('credits/<int:credit_id>/delete/', views.delete_credit_view, name='delete_credit'),
 
     path('debts/', views.debts_view, name='debts'),
+    path('debts/<int:debt_id>/close/', views.close_debt_view, name='close_debt'),
+    path('debts/<int:debt_id>/delete/', views.delete_debt_view, name='delete_debt'),
+    path('debts/history/', views.debts_history_view, name='debts_history'),
 
     path('expense-chart/', views.expense_chart_view, name='expense_chart'),
 ]

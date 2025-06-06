@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/debts.css' %}">
+
+<div class="debts-container">
+    <div class="header-bar">
+        <h2>История долгов</h2>
+        <a href="{% url 'SourceProg:debts' %}" class="btn btn-secondary">← Назад к активным долгам</a>
+    </div>
+
+    {% if debts %}
+        <div class="history-list">
+            {% for debt in debts %}
+            <div class="debt-card">
+                <p><strong>{{ debt.name }}</strong> — {{ debt.amount }}₸</p>
+                <p><strong>Тип:</strong> {% if debt.direction == 'i_owe' %}Я должен{% else %}Мне должны{% endif %}</p>
+                <p><strong>Дата закрытия:</strong> {{ debt.closed_date }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>История пуста. Все долги ещё активны.</p>
+    {% endif %}
+</div>
+{% endblock %}

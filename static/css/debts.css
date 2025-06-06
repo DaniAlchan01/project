@@ -1,0 +1,176 @@
+/* Главный контейнер */
+.debts-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* Заголовок и верхние кнопки */
+.header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    gap: 25px;
+}
+
+.header-bar h2 {
+    font-size: 1.8em;
+    margin: 0;
+}
+
+.header-actions {
+    display: flex;
+    gap: 12px;
+}
+
+/* Кнопки верхние */
+.btn-primary {
+    background-color: #3498db;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.btn-primary:hover {
+    background-color: #2980b9;
+}
+
+.btn-secondary {
+    background-color: #7f8c8d;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.btn-secondary:hover {
+    background-color: #636e72;
+}
+
+/* Плавно раскрываемая форма */
+.add-debt-form {
+    background-color: #f4f6f8;
+    padding: 0 20px;
+    border-radius: 10px;
+    border: 1px solid #dfe6e9;
+    margin-bottom: 35px;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.3s ease;
+}
+
+.add-debt-form form {
+    margin-top: 10px;
+}
+
+.add-debt-form.active {
+    max-height: 1000px;
+    opacity: 1;
+    padding: 20px;
+}
+
+/* Кнопка в форме */
+.btn-submit {
+    background-color: #2ecc71;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.btn-submit:hover {
+    background-color: #27ae60;
+}
+
+/* Две колонки */
+.debt-columns {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.debt-column {
+    flex: 1 1 48%;
+}
+
+/* Заголовки колонок */
+.debt-column h3 {
+    font-size: 1.3em;
+    margin-bottom: 15px;
+    color: #2d3436;
+}
+
+/* Карточка долга */
+.debt-card {
+    background-color: #fafafa;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 18px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+    transition: transform 0.2s ease;
+}
+
+.debt-card:hover {
+    transform: scale(1.01);
+}
+
+/* Действия под карточкой */
+.debt-actions {
+    margin-top: 12px;
+    display: flex;
+    gap: 10px;
+}
+
+/* Кнопки */
+.btn-done {
+    background-color: #2ecc71;
+    color: white;
+    padding: 6px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.9em;
+}
+
+.btn-done:hover {
+    background-color: #27ae60;
+}
+
+.btn-delete {
+    background-color: #e74c3c;
+    color: white;
+    padding: 6px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.9em;
+}
+
+.btn-delete:hover {
+    background-color: #c0392b;
+}
+
+/* История долгов */
+.history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.history-list .debt-card p {
+    margin: 4px 0;
+}

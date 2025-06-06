@@ -6,11 +6,11 @@
 
 <div class="credits-container">
     <div class="header-bar">
+        <a href="{% url 'SourceProg:add_expense' %}"><img src="{% static 'img/backbtn.svg' %}" height="25px" width="40px" alt=""></a>
         <h2>Мои кредиты</h2>
         <a href="#" class="btn btn-add" id="toggle-form">+ Добавить кредит</a>
     </div>
     
-        <a href="{% url 'SourceProg:add_expense' %}">Назад</a>
 
     <div class="add-credit-form" id="credit-form">
         <form method="post">

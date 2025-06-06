@@ -2,8 +2,9 @@ from django.contrib import messages
 from django.http import HttpResponseForbidden
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Category, Expense, Credit, CreditPayment
-from .forms import ExpenseForm, CategoryForm, ExpenseEditForm, CreditForm
+from .models import *
+from .forms import *
+from django.utils import timezone
 from django.db.models import Q
 from django.core.paginator import Paginator
 from django.utils.timezone import now
@@ -257,7 +258,47 @@ def delete_credit_view(request, credit_id):
         'credit': credit
     })
 
-
 @login_required
 def debts_view(request):
-    return render(request, 'sourceprog/debts.html')
+    debts_i_owe = Debt.objects.filter(user=request.user, direction='i_owe', is_closed=False)
+    debts_they_owe = Debt.objects.filter(user=request.user, direction='they_owe', is_closed=False)
+    form = DebtForm()
+
+    if request.method == 'POST':
+        form = DebtForm(request.POST)
+        if form.is_valid():
+            debt = form.save(commit=False)
+            debt.user = request.user
+            debt.save()
+            messages.success(request, 'Долг добавлен.')
+            return redirect('SourceProg:debts')
+
+    return render(request, 'sourceprog/debts.html', {
+        'form': form,
+        'debts_i_owe': debts_i_owe,
+        'debts_they_owe': debts_they_owe,
+    })
+
+
+@login_required
+def close_debt_view(request, debt_id):
+    debt = get_object_or_404(Debt, id=debt_id, user=request.user)
+    debt.is_closed = True
+    debt.closed_date = timezone.now()
+    debt.save()
+    messages.success(request, 'Долг закрыт.')
+    return redirect('SourceProg:debts')
+
+
+@login_required
+def delete_debt_view(request, debt_id):
+    debt = get_object_or_404(Debt, id=debt_id, user=request.user)
+    debt.delete()
+    messages.success(request, 'Долг удалён.')
+    return redirect('SourceProg:debts')
+
+
+@login_required
+def debts_history_view(request):
+    debts = Debt.objects.filter(user=request.user, is_closed=True).order_by('-closed_date')
+    return render(request, 'sourceprog/debts_history.html', {'debts': debts})
