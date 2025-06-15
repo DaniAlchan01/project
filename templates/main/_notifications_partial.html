@@ -1,0 +1,18 @@
+<div class="notif-container">
+    <button id="notif-bell-btn" class="notif-bell" aria-label="Уведомления">
+        🔔
+        {% if unread_notifications > 0 %}
+            <span class="notif-count">{{ unread_notifications }}</span>
+        {% endif %}
+    </button>
+    <div id="notif-popup" class="notif-popup hidden">
+        <h4>Уведомления</h4>
+        <ul>
+            {% for note in notifications %}
+                <li>{{ note.message }}</li>
+            {% empty %}
+                <li>Уведомлений нет</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

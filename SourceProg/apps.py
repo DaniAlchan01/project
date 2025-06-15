@@ -6,3 +6,4 @@ class SourceprogConfig(AppConfig):
 
     def ready(self):
         import SourceProg.signals  # Подключаем сигналы при старте
+

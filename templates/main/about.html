@@ -26,12 +26,10 @@
     <div class="slider-dots"></div>
 </div>
 
-    <hr>
+<hr>
 
 <section class="about-sections">
     <div class="container">
-
-        <!-- Секция 1 -->
         <div class="section" data-aos="fade-up">
             <div class="image-container">
                 <img src="image1.jpg" alt="Аналитика">
@@ -42,7 +40,6 @@
             </div>
         </div>
 
-        <!-- Секция 2 -->
         <div class="section" data-aos="fade-up" data-aos-delay="200">
             <div class="image-container">
                 <img src="image2.jpg" alt="Управление">
@@ -53,7 +50,6 @@
             </div>
         </div>
 
-        <!-- Секция 3 -->
         <div class="section" data-aos="fade-up" data-aos-delay="400">
             <div class="image-container">
                 <img src="image3.jpg" alt="Цели">
@@ -66,232 +62,176 @@
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-  AOS.init({
-    duration: 800,
-    once: true
-  });
+  AOS.init({ duration: 800, once: true });
 </script>
 
     </div>
 </section>
 
-    <hr>
+<hr>
 
-    <!-- Преимущества -->
-    <div class="about-block">
-        <h2>Преимущества</h2>
-        <p>С нашей платформой вы получаете несколько ключевых преимуществ:</p>
-
-        <div class="image-triangle">
-            <div class="row top-row">
-                <div class="triangle-image">
-                    <img src="{% static 'img/hamburger.png' %}" alt="Преимущество 1">
-                    <p>Преимущество 1: Легкость в использовании</p>
-                </div>
+<div class="about-block">
+    <h2>Преимущества</h2>
+    <p>С нашей платформой вы получаете несколько ключевых преимуществ:</p>
+    <div class="image-triangle">
+        <div class="row top-row">
+            <div class="triangle-image">
+                <img src="{% static 'img/hamburger.png' %}" alt="Преимущество 1">
+                <p>Преимущество 1: Легкость в использовании</p>
             </div>
-            <div class="row bottom-row">
-                <div class="triangle-image">
-                    <img src="{% static 'img/laundry.png' %}" alt="Преимущество 2">
-                    <p>Преимущество 2: Полный контроль над вашими финансами</p>
-                </div>
-                <div class="triangle-image">
-                    <img src="{% static 'img/medical.png' %}" alt="Преимущество 3">
-                    <p>Преимущество 3: Безопасность ваших данных</p>
-                </div>
+        </div>
+        <div class="row bottom-row">
+            <div class="triangle-image">
+                <img src="{% static 'img/laundry.png' %}" alt="Преимущество 2">
+                <p>Преимущество 2: Полный контроль над вашими финансами</p>
+            </div>
+            <div class="triangle-image">
+                <img src="{% static 'img/medical.png' %}" alt="Преимущество 3">
+                <p>Преимущество 3: Безопасность ваших данных</p>
             </div>
         </div>
     </div>
+</div>
 
-    <hr>
+<hr>
 
-    <!-- Демо-секция -->
-    <div class="demo-section">
-        <div class="demo-content">
-            <h2 class="demo-title">Демо-режим</h2>
-            <p class="demo-description">Посмотрите демонстрацию нашего сервиса в действии. Ознакомьтесь с интерфейсом и основными функциями платформы в интерактивном формате.</p>
-        </div>
-        
-        <div class="demo-video-container">
-            <div class="video-wrapper">
-                <iframe src="https://www.youtube.com/embed/38fqEA482Wo" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen>
-                </iframe>
-            </div>
+<div class="demo-section">
+    <div class="demo-content">
+        <h2 class="demo-title">Демо-режим</h2>
+        <p class="demo-description">Посмотрите демонстрацию нашего сервиса в действии. Ознакомьтесь с интерфейсом и основными функциями платформы в интерактивном формате.</p>
+    </div>
+    <div class="demo-video-container">
+        <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/38fqEA482Wo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
     </div>
+</div>
 
-    <hr>
+<hr>
 
-    <div class="security-block">
-        <h2 class="security-title">Безопасность данных — наш главный приоритет</h2>
-        
-        <p class="security-text">
-            В цифровую эпоху защита информации становится критически важной. Мы используем многоуровневую систему безопасности, 
-            сочетающую передовые технологии и строгие протоколы обработки данных. Ежегодно наши системы проходят независимый аудит 
-            по стандартам ISO 27001 и PCI DSS.
-        </p>
-        
-        <ul class="security-list">
-            <li>256-битное SSL-шифрование данных</li>
-            <li>Двухфакторная аутентификация</li>
-            <li>Защита от DDoS-атак</li>
-            <li>Ежедневное резервное копирование</li>
-            <li>Сертифицированные дата-центры Tier III</li>
-            <li>Система обнаружения вторжений (IDS/IPS)</li>
-            <li>Регулярные пентесты безопасности</li>
-            <li>Соблюдение GDPR требований</li>
-        </ul>
-        
-        <p class="security-text">
-            Все операции защищены банковским уровнем безопасности. Мы никогда не храним платежные реквизиты, 
-            а для авторизации используем токенизацию данных. Круглосуточный мониторинг и мгновенное реагирование 
-            на любые подозрительные активности гарантируют вашу полную защиту.
-        </p>
-    </div>
-    <hr>
+<div class="security-block">
+    <h2 class="security-title">Безопасность данных — наш главный приоритет</h2>
+    <p class="security-text">В цифровую эпоху защита информации становится критически важной...</p>
+    <ul class="security-list">
+        <li>256-битное SSL-шифрование данных</li>
+        <li>Двухфакторная аутентификация</li>
+        <li>Защита от DDoS-атак</li>
+        <li>Ежедневное резервное копирование</li>
+        <li>Сертифицированные дата-центры Tier III</li>
+        <li>Система обнаружения вторжений (IDS/IPS)</li>
+        <li>Регулярные пентесты безопасности</li>
+        <li>Соблюдение GDPR требований</li>
+    </ul>
+    <p class="security-text">Все операции защищены банковским уровнем безопасности...</p>
+</div>
 
-    <!-- Советы по финансовой грамотности -->
-    <div class="about-block">
-        <h2>Советы по финансовой грамотности</h2>
-        <p>Подпишитесь на наш канал в <a href="https://t.me/your_telegram_channel" target="_blank">Telegram</a> для получения полезных советов и статей по финансовой грамотности.</p>
-    </div>
+<hr>
 
-    <hr>
+<div class="about-block">
+    <h2>Советы по финансовой грамотности</h2>
+    <p>Подпишитесь на наш канал в <a href="https://t.me/your_telegram_channel" target="_blank">Telegram</a>.</p>
+</div>
 
-    <!-- Отзывы -->
-    <div class="about-block">
-        <h2>Отзывы</h2>
-        <p>Посмотрите, что говорят наши пользователи:</p>
+<hr>
+<div class="about-block">
+    <h2>Отзывы</h2>
+    <p>Посмотрите, что говорят наши пользователи:</p>
 
-        <!-- Форма для добавления отзыва -->
-        <form method="POST">
+    {% if request.user.is_authenticated %}
+        {% if form %}
+        <form method="POST" class="review-form">
             {% csrf_token %}
-            {{ form.as_p }}  <!-- Поля формы для отзыва -->
-            <button type="submit">Оставить отзыв</button>
+            <div class="form-group">
+                {{ form.text.label_tag }}
+                {{ form.text }}
+            </div>
+            <div class="form-group">
+                <label>Оценка:</label>
+                <div class="rating-input">
+                    {% for radio in form.rating %}
+                        <label class="star-label">
+                            {{ radio.tag }}
+                            <img src="{% static 'img/star.png' %}" alt="★">
+                        </label>
+                    {% endfor %}
+                </div>
+            </div>
+            <button type="submit" class="btn-submit">Оставить отзыв</button>
         </form>
+        {% else %}
+            <p style="text-align:center; font-weight: 500; margin-top: 20px;">
+                Вы уже оставили отзыв. Спасибо!
+            </p>
+        {% endif %}
+    {% endif %} {# ←←← ЭТОГО не хватало #}
 
-        {% for review in reviews %}
-        <div class="review">
-            <div class="review-header">
-                <img src="{{ review.user.avatar.url }}" alt="аватар" width="30" height="30" style="border-radius: 4px;">
-                <strong>{{ review.user.username }}</strong>
-                <small>{{ review.user.status }}</small>
-            </div>
-
-            <div class="review-stars">
-                {% for i in "12345"|make_list %}
-                    {% if forloop.counter <= review.rating %}
-                        <img src="{% static 'img/star.png' %}" alt="звезда" width="12" height="12">
-                    {% else %}
-                        <img src="{% static 'img/star1.png' %}" alt="☆" width="12" height="12">
-                    {% endif %}
-                {% endfor %}
-            </div>
-
-            <p>{{ review.text }}</p>
-
-            <div class="review-actions">
-                {% if request.user == review.user or request.user.is_superuser %}
-                    <!-- Удаление с подтверждением -->
-                    <button onclick="confirmDelete({{ review.id }})">🗑️ Удалить</button>
-                {% endif %}
-                <!-- Лайк -->
-                <button id="like-button-{{ review.id }}" onclick="likeReview({{ review.id }})">
-                    👍 <span id="likes-count-{{ review.id }}">{{ review.total_likes }}</span>
-                </button>
-            </div>
-        </div>
-        {% endfor %}
+    <div id="review-container">
+        {% include 'main/_review_items.html' with reviews=reviews %}
     </div>
+
+    {% if total_count > reviews.paginator.per_page %}
+    <div style="text-align:center; margin-top: 20px;">
+        <button id="loadMoreBtn">Ещё отзывы</button>
+    </div>
+    {% endif %}
+</div>
 </section>
 
-<!-- Модальное окно для удаления отзыва -->
+
 <div id="deleteModal" class="modal" style="display:none;">
     <div class="modal-content">
         <span class="close" onclick="closeModal()">&times;</span>
         <h2>Вы уверены, что хотите удалить этот отзыв?</h2>
-        <form id="deleteForm" method="POST" action="">
-            {% csrf_token %}
-            <button type="submit">Удалить</button>
-            <button type="button" onclick="closeModal()">Отмена</button>
-        </form>
+        <form id="deleteForm" method="POST" action="">{% csrf_token %}<button type="submit">Удалить</button><button type="button" onclick="closeModal()">Отмена</button></form>
     </div>
 </div>
 
-<script src="{% static 'js/about.js' %}"></script>
-<script src="{% static 'js/home.js' %}"></script>
-
 <script>
-    // Функция для подтверждения удаления отзыва
-    function confirmDelete(reviewId) {
-        const modal = document.getElementById('deleteModal');
-        const form = document.getElementById('deleteForm');
-        if (!modal || !form) return;
-
-        // Обновляем action формы с id отзыва
-        form.action = `/reviews/delete/${reviewId}/`;
-
-        // Показываем модальное окно
-        modal.style.display = 'block';
-    }
-
-    // Закрытие модального окна
-    function closeModal() {
-        const modal = document.getElementById('deleteModal');
-        modal.style.display = 'none';
-    }
-document.addEventListener('DOMContentLoaded', function() {
-    const carouselInner = document.querySelector('.carousel-inner');
-    const sliderDots = document.querySelector('.slider-dots');
-    const prevBtn = document.querySelector('.prev-btn');
-    const nextBtn = document.querySelector('.next-btn');
-    const items = document.querySelectorAll('.demo-item');
-    let currentIndex = 0;
-
-    // Создание точек навигации
-    items.forEach((_, index) => {
-        const dot = document.createElement('div');
-        dot.className = 'slider-dot';
-        if(index === 0) dot.classList.add('active');
-        dot.addEventListener('click', () => goToSlide(index));
-        sliderDots.appendChild(dot);
-    });
-
-    // Переход к слайду
-    function goToSlide(index) {
-        currentIndex = Math.max(0, Math.min(index, items.length - 1));
-        carouselInner.scrollTo({
-            left: items[currentIndex].offsetLeft,
-            behavior: 'smooth'
+let currentPage = 2;
+document.getElementById("loadMoreBtn")?.addEventListener("click", function() {
+    fetch(`/reviews/load/?page=${currentPage}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const container = document.getElementById("review-container");
+                container.insertAdjacentHTML("beforeend", data.html);
+                currentPage++;
+            } else {
+                this.style.display = "none";
+            }
         });
-        updateDots();
-    }
+});
+function confirmDelete(reviewId) {
+    const modal = document.getElementById('deleteModal');
+    const form = document.getElementById('deleteForm');
+    if (!modal || !form) return;
+    form.action = `/reviews/delete/${reviewId}/`;
+    modal.style.display = 'block';
+}
+function closeModal() {
+    const modal = document.getElementById('deleteModal');
+    modal.style.display = 'none';
+}
+document.addEventListener("click", function(e) {
+    const btn = e.target.closest(".like-btn");
+    if (!btn) return;
 
-    // Обновление точек
-    function updateDots() {
-        document.querySelectorAll('.slider-dot').forEach((dot, i) => {
-            dot.classList.toggle('active', i === currentIndex);
-        });
-    }
+    const reviewId = btn.dataset.reviewId;
 
-    // Обработчики кнопок
-    prevBtn.addEventListener('click', () => {
-        if(currentIndex > 0) {
-            goToSlide(currentIndex - 1);
+    fetch(`/reviews/like/${reviewId}/`, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': '{{ csrf_token }}',
+            'X-Requested-With': 'XMLHttpRequest',
         }
+    })
+    .then(res => res.json())
+    .then(data => {
+        btn.querySelector(".like-count").textContent = data.total_likes;
+        btn.classList.toggle("liked", data.liked);
     });
-
-    nextBtn.addEventListener('click', () => {
-        if(currentIndex < items.length - 1) {
-            goToSlide(currentIndex + 1);
-        }
-    });
-
-    // Инициализация
-    updateDots();
 });
 </script>
-
+<script src="{% static 'js/about.js' %}"></script>
+<script src="{% static 'js/home.js' %}"></script>
 {% endblock %}

@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<style>
+.chart-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 30px;
+  padding: 40px;
+  max-width: 1200px;
+  margin: auto;
+}
+.chart-box {
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* 🌙 Тёмная тема */
+body.dark-theme .chart-box {
+  background: #1e1e1e;
+  color: #f0f0f0;
+}
+
+body.dark-theme h2 {
+  color: #f0f0f0;
+}
+
+canvas {
+  width: 100% !important;
+  height: 300px !important;
+  background: transparent;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<h2 style="text-align:center; margin-top: 40px;">Аналитика расходов</h2>
+<div class="chart-grid">
+  <div class="chart-box"><canvas id="categoryChart"></canvas></div>
+  <div class="chart-box"><canvas id="dailyChart"></canvas></div>
+  <div class="chart-box"><canvas id="topCategoriesChart"></canvas></div>
+  <div class="chart-box"><canvas id="monthlyChart"></canvas></div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const categoryData = JSON.parse('{{ expenses_by_category_json|escapejs }}');
+const dailyData = JSON.parse('{{ expenses_by_day_json|escapejs }}');
+
+// 1. Круговая по категориям
+new Chart(document.getElementById('categoryChart'), {
+  type: 'doughnut',
+  data: {
+    labels: categoryData.map(c => c.category__name),
+    datasets: [{
+      data: categoryData.map(c => c.total),
+      backgroundColor: categoryData.map(c => c.category__color),
+    }]
+  },
+  options: {
+    plugins: { title: { display: true, text: 'Расходы по категориям' } }
+  }
+});
+
+// 2. По дням
+new Chart(document.getElementById('dailyChart'), {
+  type: 'bar',
+  data: {
+    labels: dailyData.map(d => d.day),
+    datasets: [{
+      label: 'Сумма',
+      data: dailyData.map(d => d.total),
+      backgroundColor: '#4a90e2'
+    }]
+  },
+  options: {
+    plugins: { title: { display: true, text: 'По дням' } },
+    scales: { y: { beginAtZero: true } }
+  }
+});
+
+// 3. Топ-5 категорий
+const topCategories = categoryData
+  .sort((a, b) => b.total - a.total)
+  .slice(0, 5);
+
+new Chart(document.getElementById('topCategoriesChart'), {
+  type: 'bar',
+  data: {
+    labels: topCategories.map(c => c.category__name),
+    datasets: [{
+      data: topCategories.map(c => c.total),
+      label: 'Сумма',
+      backgroundColor: topCategories.map(c => c.category__color)
+    }]
+  },
+  options: {
+    plugins: { title: { display: true, text: 'Топ 5 категорий' } },
+    indexAxis: 'y',
+    scales: { x: { beginAtZero: true } }
+  }
+});
+
+// 4. Месячный график (если будут даты)
+const months = {};
+dailyData.forEach(entry => {
+  const month = entry.day.slice(0,7);
+  months[month] = (months[month] || 0) + parseFloat(entry.total);
+});
+
+new Chart(document.getElementById('monthlyChart'), {
+  type: 'line',
+  data: {
+    labels: Object.keys(months),
+    datasets: [{
+      label: 'Расходы',
+      data: Object.values(months),
+      borderColor: '#27ae60',
+      fill: false,
+      tension: 0.3
+    }]
+  },
+  options: {
+    plugins: { title: { display: true, text: 'По месяцам' } },
+    scales: { y: { beginAtZero: true } }
+  }
+});
+</script>
+{% endblock %}

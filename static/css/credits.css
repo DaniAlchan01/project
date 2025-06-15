@@ -135,3 +135,73 @@
 .btn-pay:hover { background-color: #1e8449; }
 .btn-edit:hover { background-color: #d68910; }
 .btn-delete:hover { background-color: #c0392b; }
+
+/* 🌙 Тёмная тема: кредиты */
+body.dark-theme .credits-container {
+  background: #1e1e1e;
+  color: #f0f0f0;
+  box-shadow: 0 5px 18px rgba(0,0,0,0.3);
+}
+
+body.dark-theme .add-credit-form {
+  background-color: #2a2a2a;
+  border-color: #444;
+}
+
+body.dark-theme .credit-card {
+  background-color: #2b2b2b;
+  border-color: #444;
+}
+
+body.dark-theme .credit-title,
+body.dark-theme .credit-body p {
+  color: #f0f0f0;
+}
+
+body.dark-theme .badge.paid {
+  background-color: #27ae60;
+  color: #fff;
+}
+
+body.dark-theme .btn-pay,
+body.dark-theme .btn-edit,
+body.dark-theme .btn-delete,
+body.dark-theme .btn-submit,
+body.dark-theme .btn-add {
+  color: #fff;
+}
+
+body.dark-theme .btn-pay {
+  background-color: #239b56;
+}
+body.dark-theme .btn-pay:hover {
+  background-color: #1e8449;
+}
+
+body.dark-theme .btn-edit {
+  background-color: #f39c12;
+}
+body.dark-theme .btn-edit:hover {
+  background-color: #d68910;
+}
+
+body.dark-theme .btn-delete {
+  background-color: #e74c3c;
+}
+body.dark-theme .btn-delete:hover {
+  background-color: #c0392b;
+}
+
+body.dark-theme .btn-submit {
+  background-color: #2ecc71;
+}
+body.dark-theme .btn-submit:hover {
+  background-color: #27ae60;
+}
+
+body.dark-theme .btn-add {
+  background-color: #3498db;
+}
+body.dark-theme .btn-add:hover {
+  background-color: #2980b9;
+}

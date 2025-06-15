@@ -60,3 +60,19 @@ class Debt(models.Model):
 
     def __str__(self):
         return f"{self.name} — {self.amount}₸"
+
+class SpendingLimit(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    monthly_limit = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return f"{self.user.username}: {self.monthly_limit}₸"
+    
+class Notification(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    message = models.TextField()
+    is_read = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"To {self.user.username}: {self.message[:40]}"

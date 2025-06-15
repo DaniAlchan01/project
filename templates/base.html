@@ -7,7 +7,7 @@
     <meta name="description" content="Управляйте своими расходами и финансами с удобной платформой учета трат.">
     <title>{% block title %}Мой сайт{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/homestyle.css' %}">
-    <link rel="icon" href="{% static 'img/icon.ico' %}">
+    <link rel="icon" href="{% static 'img/graf.png' %}">
     <!-- Добавляем блок для дополнительных стилей -->
     {% block extra_css %}{% endblock %}
 </head>
@@ -33,12 +33,21 @@
             <ul class="nav-right">
                 {% if user.is_authenticated %}
                     {% if request.resolver_match.view_name != "main:account" %}
-                        <li>
+                        <li class="nav-user-block">
+                            <!-- Уведомления -->
+                            <!-- Уведомления (загружается через AJAX) -->
+                            <div id="notif-wrapper"></div>
+
+                            <!-- Аватар -->
                             <div class="profile-container">
                                 {% if user.avatar %}
-                                    <a href="{% url 'main:account' %}"><img src="{{ user.avatar.url }}" alt="Фото профиля" class="profile-image" id="profile-avatar" ></a>
+                                    <a href="{% url 'main:account' %}">
+                                        <img src="{{ user.avatar.url }}" alt="Фото профиля" class="profile-image" id="profile-avatar">
+                                    </a>
                                 {% else %}
-                                    <a href="{% url 'main:account' %}"><img src="{% static 'img/default-avatar.png' %}" alt="Фото профиля" class="profile-image" id="profile-avatar"></a>
+                                    <a href="{% url 'main:account' %}">
+                                        <img src="{% static 'img/default-avatar.png' %}" alt="Фото профиля" class="profile-image" id="profile-avatar">
+                                    </a>
                                 {% endif %}
                             </div>
                         </li>
@@ -111,6 +120,50 @@
 
     {% endblock %}
 
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const wrapper = document.getElementById('notif-wrapper');
+    if (wrapper && "{{ user.is_authenticated }}" === "True") {
+        fetch("{% url 'main:notifications_partial' %}")
+            .then(res => res.text())
+            .then(html => {
+                wrapper.innerHTML = html;
+
+                const bell = document.getElementById('notif-bell-btn');
+                const popup = document.getElementById('notif-popup');
+
+                if (bell && popup) {
+                    bell.addEventListener('click', () => {
+                        popup.classList.toggle('hidden');
+
+                        // Отправить запрос "прочитано"
+                        if (!popup.classList.contains('hidden')) {
+                            fetch("{% url 'main:mark_notifications_read' %}", {
+                                method: "POST",
+                                headers: {
+                                    "X-CSRFToken": "{{ csrf_token }}",
+                                    "X-Requested-With": "XMLHttpRequest"
+                                }
+                            }).then(res => {
+                                if (res.ok) {
+                                    document.querySelector('.notif-count')?.remove();
+                                }
+                            });
+                        }
+                    });
+
+                    document.addEventListener('click', (e) => {
+                        if (!popup.contains(e.target) && !bell.contains(e.target)) {
+                            popup.classList.add('hidden');
+                        }
+                    });
+                }
+            })
+            .catch(err => console.error("Не удалось загрузить уведомления:", err));
+    }
+});
+</script>
 
 
     <!-- Подключаем JS -->

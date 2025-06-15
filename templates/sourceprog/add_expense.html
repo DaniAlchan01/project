@@ -11,11 +11,12 @@
   <hr>
 
   <div class="mb-3 navigation-buttons">
-    <a href="{% url 'SourceProg:expense_chart' %}" class="btn btn-chart">Диаграмма</a>
+    <a href="{% url 'SourceProg:analytics' %}" class="btn btn-chart">Диаграмма</a>
     <a href="{% url 'SourceProg:expense_history' %}" class="btn btn-history">История</a>
 
       <a href="{% url 'SourceProg:credits' %}" class="btn btn-chart">Кредиты</a>
       <a href="{% url 'SourceProg:debts' %}" class="btn btn-chart">Долги</a>
+      <a href="{% url 'SourceProg:categories' %}" class="btn btn-chart">Категории</a>
   </div>
 
   {% if form %}
@@ -47,83 +48,6 @@
     {% if error_message %}
       <div class="alert alert-warning">{{ error_message }}</div>
     {% endif %}
-  {% endif %}
-
-  <div class="category-list">
-    <h4>Мои категории:</h4>
-    <ul class="list-group">
-      {% for category in categories %}
-        {% if category.created_by == user %}
-          <li class="list-group-item" data-category-id="{{ category.id }}" data-name="{{ category.name }}" data-color="{{ category.color }}">
-            <span class="category-name" style="background-color: {{ category.color }}; padding: 2px 6px; border-radius: 4px;">
-              {{ category.name }}
-            </span>
-            <div class="category-actions">
-              <a href="javascript:void(0);" onclick="showEditForm({{ category.id }});" class="btn btn-edit">
-                <i class="fas fa-pencil-alt"></i>
-              </a>
-              <form method="post" action="{% url 'SourceProg:delete_category' category.id %}" style="display:inline;" onsubmit="return confirm('Вы уверены, что хотите удалить эту категорию?');">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-delete">
-                  <i class="fas fa-trash-alt"></i>
-                </button>
-              </form>
-            </div>
-          </li>
-        {% endif %}
-      {% endfor %}
-    </ul>
-    {% if not user_has_limit %}
-      <a href="javascript:void(0);" class="btn btn-add-category" id="showCategoryFormButton">
-        <i class="fas fa-plus"></i>
-      </a>
-    {% endif %}
-  </div>
-
-  <!-- Форма добавления новой категории -->
-  {% if not user_has_limit %}
-  <div id="categoryForm" class="hidden">
-    <h4>Новая категория</h4>
-    <form method="post" action="{% url 'SourceProg:add_category' %}">
-      {% csrf_token %}
-      <div class="form-group">
-        <label for="name">Название категории</label>
-        <input type="text" class="form-control" id="name" name="name" required>
-      </div>
-      <div class="form-group">
-        <label for="color">Цвет категории</label>
-        <input type="color" class="form-control" id="color" name="color" required>
-      </div>
-      <button type="submit" class="btn btn-create">Создать категорию</button>
-    </form>
-  </div>
-  {% endif %}
-
-  <!-- Форма редактирования категории -->
-  <div id="editCategoryForm" class="hidden">
-    <h4>Редактировать категорию</h4>
-    <form method="post" action="#" id="categoryEditForm">
-      {% csrf_token %}
-      <div class="form-group">
-        <label for="edit_name">Название категории</label>
-        <input type="text" class="form-control" id="edit_name" name="name" required>
-      </div>
-      <div class="form-group">
-        <label for="edit_color">Цвет категории</label>
-        <input type="color" class="form-control" id="edit_color" name="color" required>
-      </div>
-      <button type="submit" class="btn btn-save">Сохранить изменения</button>
-    </form>
-  </div>
-
-  {% if user_has_limit %}
-  <div id="categoryLimitWarning" class="alert alert-warning mt-3">
-    <strong>Предупреждение!</strong> Вы достигли лимита на создание категорий. Чтобы создать больше категорий, купите прайм-статус за 3400 тенге.
-    <div class="mt-3">
-      <a href="https://your-payment-link.com" class="btn btn-buy">Купить прайм</a>
-      <a href="javascript:void(0);" onclick="document.getElementById('categoryLimitWarning').style.display='none';" class="btn btn-close">Закрыть</a>
-    </div>
-  </div>
   {% endif %}
 
 </div>

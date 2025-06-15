@@ -1,0 +1,35 @@
+{% load static %}
+
+{% for review in reviews %}
+<div class="review-card">
+    <div class="review-user">
+        <img src="{{ review.user.avatar.url }}" alt="аватар" class="review-avatar">
+        <div class="user-info">
+            <strong>{{ review.user.username }}</strong>
+            <small>{{ review.user.status }}</small>
+        </div>
+    </div>
+
+    <div class="review-stars">
+        {% for i in "12345"|make_list %}
+            {% if forloop.counter <= review.rating %}
+                <img src="{% static 'img/star.png' %}" alt="звезда">
+            {% else %}
+                <img src="{% static 'img/star1.png' %}" alt="пустая звезда">
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <p class="review-text">{{ review.text }}</p>
+
+    <div class="review-actions">
+        <button class="like-btn {% if user in review.likes.all %}liked{% endif %}" data-review-id="{{ review.id }}">
+            ❤️ <span class="like-count">{{ review.total_likes }}</span>
+        </button>
+        {% if user == review.user or user.is_superuser %}
+            <button class="btn-delete-review" onclick="confirmDelete({{ review.id }})">🗑</button>
+        {% endif %}
+    </div>
+
+</div>
+{% endfor %}

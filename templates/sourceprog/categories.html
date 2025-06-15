@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/categories.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="categories-container" data-edit-url="{% url 'SourceProg:edit_category' 0 %}">
+  <div class="header-categories">
+    <a href="{% url 'SourceProg:add_expense' %}">
+      <img src="{% static 'img/backbtn.svg' %}" height="25px" width="40px" alt="Назад">
+    </a>
+    <h2>Мои категории</h2>
+    <hr>
+  </div>
+
+  <div class="category-list">
+    {% for category in categories %}
+      <div class="category-item" data-category-id="{{ category.id }}" data-name="{{ category.name }}" data-color="{{ category.color }}">
+        <span class="category-badge" style="background-color: {{ category.color }};">{{ category.name }}</span>
+        <div class="category-actions">
+          <button class="btn-edit" onclick="showEditForm({{ category.id }})">
+            <i class="fas fa-pencil-alt"></i>
+          </button>
+          <form method="post" action="{% url 'SourceProg:delete_category' category.id %}" onsubmit="return confirm('Удалить категорию?');">
+            {% csrf_token %}
+            <button type="submit" class="btn-delete"><i class="fas fa-trash-alt"></i></button>
+          </form>
+        </div>
+      </div>
+    {% empty %}
+      <p>У вас пока нет категорий.</p>
+    {% endfor %}
+  </div>
+
+  <button class="btn btn-add" onclick="showAddForm()">Добавить категорию <i class="fas fa-plus"></i></button>
+</div>
+
+<!-- Модальное окно добавления категории -->
+<div id="addModal" class="modal">
+  <div class="modal-box">
+    <span class="close" onclick="closeAddForm()">&times;</span>
+    <h3>Добавить категорию</h3>
+    <form method="post" action="{% url 'SourceProg:add_category' %}">
+      {% csrf_token %}
+      <div class="modal-field">
+        {{ form.name }}
+      </div>
+      <div class="modal-field">
+        {{ form.color }}
+      </div>
+      <button type="submit" class="btn btn-save full-width">Сохранить</button>
+    </form>
+  </div>
+</div>
+
+<!-- Модальное окно редактирования категории -->
+<div id="editModal" class="modal">
+  <div class="modal-box">
+    <span class="close" onclick="closeEditForm()">&times;</span>
+    <h3>Редактировать категорию</h3>
+    <form method="post" action="#" id="editCategoryForm">
+      {% csrf_token %}
+      <div class="modal-field">
+        <input type="text" id="edit_name" name="name" required>
+      </div>
+      <div class="modal-field">
+        <input type="color" id="edit_color" name="color" required>
+      </div>
+      <button type="submit" class="btn btn-save full-width">Сохранить изменения</button>
+    </form>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const editModal = document.getElementById("editModal");
+    const addModal = document.getElementById("addModal");
+    const editForm = document.getElementById("editCategoryForm");
+    const editName = document.getElementById("edit_name");
+    const editColor = document.getElementById("edit_color");
+    const editUrlTemplate = document.querySelector(".categories-container").dataset.editUrl;
+
+    window.showAddForm = function () {
+      addModal.classList.add("show");
+    };
+
+    window.closeAddForm = function () {
+      addModal.classList.remove("show");
+    };
+
+    window.showEditForm = function (categoryId) {
+      const item = document.querySelector(`[data-category-id='${categoryId}']`);
+      const name = item.getAttribute("data-name");
+      const color = item.getAttribute("data-color");
+
+      editName.value = name;
+      editColor.value = color;
+
+      editForm.action = editUrlTemplate.replace("0", categoryId);
+      editModal.classList.add("show");
+    };
+
+    window.closeEditForm = function () {
+      editModal.classList.remove("show");
+    };
+  });
+</script>
+{% endblock %}

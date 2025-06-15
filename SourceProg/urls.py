@@ -6,6 +6,7 @@ app_name = 'SourceProg'
 urlpatterns = [
     path('add-expense/', views.add_expense_view, name='add_expense'),
     path('add-category/', views.add_category_view, name='add_category'),
+    path("categories/", views.categories_view, name="categories"),
     path('edit-category/<int:category_id>/', views.edit_category_view, name='edit_category'),
     path('delete-category/<int:category_id>/', views.delete_category_view, name='delete_category'),
 
@@ -23,5 +24,5 @@ urlpatterns = [
     path('debts/<int:debt_id>/delete/', views.delete_debt_view, name='delete_debt'),
     path('debts/history/', views.debts_history_view, name='debts_history'),
 
-    path('expense-chart/', views.expense_chart_view, name='expense_chart'),
+    path("analytics/", views.analytics_view, name="analytics"),
 ]

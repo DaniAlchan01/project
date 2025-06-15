@@ -45,7 +45,7 @@ textarea {
 
 
 .btn-chart, .btn-history {
-  background-color: lime;
+  background-color: rgb(242, 173, 54);
   color: #333;
   border: none;
   border-radius: 10px;
@@ -84,7 +84,7 @@ textarea {
 
 .btn-add-category, .btn-edit, .btn-delete {
  text-decoration:none;
-  border: none;b
+  border: none;
   border-radius: 50%;
   width: 40px;
   height: 40px;
@@ -212,4 +212,76 @@ textarea {
 
 #categoryForm.hidden, #editCategoryForm.hidden {
   opacity: 0;
+}
+body.dark-theme {
+  background: #121212;
+  color: #f0f0f0;
+}
+
+.dark-theme .expense-container {
+  background: #1e1e1e;
+}
+
+.dark-theme h2,
+.dark-theme h4 {
+  color: #f0f0f0;
+}
+
+.dark-theme .form-control {
+  background-color: #2a2a2a;
+  color: #f0f0f0;
+}
+
+.dark-theme .form-control:focus {
+  background-color: #333;
+}
+
+.dark-theme .list-group-item {
+  background-color: #2b2b2b;
+  color: #f0f0f0;
+}
+
+.dark-theme .btn-chart,
+.dark-theme .btn-history,
+.dark-theme .btn-buy,
+.dark-theme .btn-close {
+  background-color: #444;
+  color: #fff;
+}
+
+.dark-theme .btn-submit,
+.dark-theme .btn-create,
+.dark-theme .btn-save {
+  background-color: #0056b3;
+  color: #fff;
+}
+
+.dark-theme .btn-submit:hover,
+.dark-theme .btn-create:hover,
+.dark-theme .btn-save:hover {
+  background-color: #003d80;
+}
+
+.dark-theme .btn-add-category,
+.dark-theme .btn-edit,
+.dark-theme .btn-delete {
+  opacity: 0.9;
+}
+
+.dark-theme .btn-add-category:hover,
+.dark-theme .btn-edit:hover,
+.dark-theme .btn-delete:hover {
+  opacity: 1;
+}
+
+.dark-theme .alert-error {
+  background-color: #3a1f1f;
+  color: #ffb3b3;
+  border-color: #5c2b2b;
+}
+
+.dark-theme #categoryForm,
+.dark-theme #editCategoryForm {
+  background-color: #1e1e1e;
+  color: #f0f0f0;
 }

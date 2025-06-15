@@ -1,0 +1,48 @@
+<!-- settings.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/profile_settings.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="settings-container">
+  <h2>Настройки профиля</h2>
+  <form method="post">
+    {% csrf_token %}
+
+    <div class="setting-group">
+      <h3>Уведомления</h3>
+      <label>
+        <input type="checkbox" name="notify_debts" {% if user.profile.notify_debts %}checked{% endif %}>
+        Напоминать о возврате долгов
+      </label>
+      <label>
+        <input type="checkbox" name="notify_limits" {% if user.profile.notify_limits %}checked{% endif %}>
+        Уведомлять о превышении лимита
+      </label>
+    </div>
+
+    <div class="setting-group">
+      <h3>Лимит расходов</h3>
+      <label for="monthly_limit">Лимит в месяц (тг)</label>
+      <input type="number" name="monthly_limit" id="monthly_limit" value="{{ user.profile.monthly_limit }}" min="0">
+    </div>
+
+    <div class="setting-group">
+      <h3>Дополнительная информация</h3>
+      <label for="city">Город</label>
+      <input type="text" name="city" id="city" value="{{ user.profile.city }}">
+
+      <label for="birth_date">Дата рождения</label>
+      <input type="date" name="birth_date" id="birth_date" value="{{ user.profile.birth_date|date:'Y-m-d' }}">
+
+      <label for="status">Статус</label>
+      <input type="text" name="status" id="status" value="{{ user.profile.status }}">
+    </div>
+
+    <button type="submit" class="btn btn-save">Сохранить изменения</button>
+  </form>
+</div>
+{% endblock %}

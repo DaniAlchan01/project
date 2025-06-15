@@ -54,3 +54,4 @@ class CustomUserAdmin(UserAdmin):
         return "-"
     avatar_preview.allow_tags = True
     avatar_preview.short_description = "Превью аватара"
+

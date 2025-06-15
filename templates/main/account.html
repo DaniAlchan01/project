@@ -3,12 +3,14 @@
 
 {% block title %}Личный кабинет{% endblock %}
 
-{% block content %}
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'css/account.css' %}">
+<link rel="stylesheet" href="{% static 'css/account.css' %}">
 {% endblock %}
+
+{% block content %}
 <div class="account-container">
-    <!-- Левая часть: аватарка и кнопки -->
+
+    <!-- Левая колонка: аватар и действия -->
     <div class="left-side">
         <div class="profile-image">
             <img src="{{ user.avatar.url|default:'/media/profile_pics/default_avatar.jpg' }}" alt="Фото профиля">
@@ -25,54 +27,86 @@
         </div>
     </div>
 
-    <!-- Правая часть: информация о пользователе -->
+    <!-- Правая колонка: данные, лимит, уведомления, расходы -->
     <div class="right-side">
+
         <div class="user-info">
             <h1>{{ user.username }}</h1>
             <p><strong>Email:</strong> {{ user.email }}</p>
-            <p><strong>Статус:</strong> {% if user.is_vip %}VIP{% else %}Обычный{% endif %}</p>
             <p><strong>Дата регистрации:</strong> {{ user.date_joined|date:"d.m.Y" }}</p>
         </div>
 
-        <div class="additional-info">
-            <h2>Дополнительная информация</h2>
-            <p>Здесь может быть текст-рыба или любая другая информация о пользователе. Например:</p>
+        {% if notifications %}
+        <div class="notification-section">
+            <h2>🔔 Уведомления</h2>
             <ul>
-                <li>Активность: высокая</li>
-                <li>Команды: Product, Security, Testing</li>
-                <li>Роль: Разработчик</li>
+                {% for note in notifications %}
+                    <li>{{ note.message }}</li>
+                {% empty %}
+                    <li>Уведомлений нет</li>
+                {% endfor %}
             </ul>
+        </div>
+        {% endif %}
 
-            <!-- Кнопка повышения до VIP, только для обычных пользователей -->
-            {% if not user.is_vip %}
-                <a href="{% url 'userauth:vipping' %}" class="btn btn-success">Получить VIP-статус</a>
+        <div class="limit-section">
+            <h2>💰 Лимит расходов</h2>
+            <form method="POST">
+                {% csrf_token %}
+                {{ limit_form.monthly_limit.label_tag }}
+                {{ limit_form.monthly_limit }}
+                <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Сохранить</button>
+            </form>
+        </div>
+
+        <div class="latest-expenses">
+            <h2>🧾 Последние расходы</h2>
+            {% if latest_expenses %}
+            <ul>
+                {% for exp in latest_expenses %}
+                    <li>
+                        {{ exp.category.name }} — {{ exp.amount }} ₸ 
+                        ({{ exp.created_at|date:"d.m.Y" }})
+                    </li>
+                {% endfor %}
+            </ul>
             {% else %}
-                <p>Вы уже VIP-пользователь!</p>
+                <p>Расходов пока нет.</p>
             {% endif %}
+        </div>
 
-            <!-- Кнопка удаления аккаунта -->
-            <button type="button" class="btn btn-danger" id="delete-account-btn">Удалить аккаунт</button>
+        <div class="account-actions">
+            <button type="button" class="btn btn-danger">Удалить аккаунт</button>
+        </div>
 
-            <!-- Модальное окно для подтверждения удаления -->
-            <div id="delete-account-modal" class="modal" style="display: none;">
-                <div class="modal-content">
-                    <h2>Подтвердите удаление аккаунта</h2>
-                    <p>Вы уверены, что хотите удалить ваш аккаунт?</p>
-                    <textarea id="delete-reason" name="delete_reason" placeholder="Напишите причину (не обязательно)"></textarea>
-                    <div class="modal-buttons">
-                        <button type="button" id="cancel-delete" class="btn btn-secondary">Отмена</button>
-                        <form id="delete-form" action="{% url 'userauth:delete_account' %}" method="post">
-                            {% csrf_token %}
-                            <button type="submit" id="confirm-delete" class="btn btn-danger">Да, удалить</button>
-                        </form>
-                    </div>
+        <!-- Модалка удаления -->
+        <div id="delete-account-modal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <h2>Подтвердите удаление аккаунта</h2>
+                <p>Вы уверены, что хотите удалить ваш аккаунт?</p>
+                <textarea id="delete-reason" name="delete_reason" placeholder="Напишите причину (не обязательно)"></textarea>
+                <div class="modal-buttons">
+                    <button type="button" id="cancel-delete" class="btn btn-secondary">Отмена</button>
+                    <form id="delete-form" action="{% url 'userauth:delete_account' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" id="confirm-delete" class="btn btn-danger">Да, удалить</button>
+                    </form>
                 </div>
             </div>
         </div>
+
     </div>
 </div>
 
 {% block extra_js %}
 <script src="{% static 'js/account.js' %}"></script>
+<script>
+document.getElementById('delete-account-btn')?.addEventListener('click', () => {
+    document.getElementById('delete-account-modal').style.display = 'block';
+});
+document.getElementById('cancel-delete')?.addEventListener('click', () => {
+    document.getElementById('delete-account-modal').style.display = 'none';
+});
+</script>
 {% endblock %}
 {% endblock %}

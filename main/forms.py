@@ -1,5 +1,6 @@
 from django import forms
 from .models import Review
+from SourceProg.models import SpendingLimit
 
 class ReviewForm(forms.ModelForm):
     class Meta:
@@ -11,3 +12,15 @@ class ReviewForm(forms.ModelForm):
         widget=forms.RadioSelect,
         label='Оценка'
     )
+
+class LimitForm(forms.ModelForm):
+    class Meta:
+        model = SpendingLimit
+        fields = ['monthly_limit']
+        labels = {'monthly_limit': 'Текущий лимит (₸)'}
+        widgets = {
+            'monthly_limit': forms.NumberInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Введите лимит...'
+            })
+        }

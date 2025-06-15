@@ -4,11 +4,15 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import *
 from .forms import *
+from django.db.models import Sum
 from django.utils import timezone
+from datetime import date
+import json
 from django.db.models import Q
 from django.core.paginator import Paginator
 from django.utils.timezone import now
 from decimal import Decimal
+
 
 @login_required
 def add_expense_view(request):
@@ -21,6 +25,7 @@ def add_expense_view(request):
             expense = form.save(commit=False)
             expense.user = request.user
             expense.save()
+            check_limit_and_notify(request.user)
             messages.success(request, 'Расход успешно добавлен!')
             return redirect('SourceProg:add_expense')
         else:
@@ -35,20 +40,33 @@ def add_expense_view(request):
         'user': request.user
     })
 
+def check_limit_and_notify(user):
+    this_month = now().replace(day=1)
+    total = Expense.objects.filter(user=user, created_at__gte=this_month).aggregate(Sum('amount'))['amount__sum'] or 0
+    try:
+        limit = SpendingLimit.objects.get(user=user)
+        if limit.monthly_limit > 0 and total > limit.monthly_limit:
+            if not Notification.objects.filter(user=user, message__icontains="лимит", created_at__date=now().date()).exists():
+                Notification.objects.create(user=user, message="Вы превысили лимит расходов на месяц.")
+    except SpendingLimit.DoesNotExist:
+        pass
+
+@login_required
+def categories_view(request):
+    form = CategoryForm()
+    categories = Category.objects.filter(created_by=request.user)
+    return render(request, 'sourceprog/categories.html', {
+        'form': form,
+        'categories': categories
+    })
+
 @login_required
 def add_category_view(request):
     if not request.user.is_vip:
-        # Проверяем, сколько категорий у пользователя
         user_categories_count = Category.objects.filter(created_by=request.user).count()
-
         if user_categories_count >= 9:
-            # Если категория больше 9, то показываем сообщение с двумя кнопками
-            messages.warning(request, 'У вас лимит категорий (9). Для добавления больше категорий, пожалуйста, купите приложение за 3400 тг.')
-            return render(request, 'sourceprog/add_expense.html', {
-                'form': None,  # Мы не будем отображать форму для добавления новой категории
-                'user_has_limit': True,
-                'categories': Category.objects.filter(created_by=request.user),
-            })
+            messages.warning(request, 'У вас лимит категорий (9)...')
+            return redirect('SourceProg:categories')
 
     if request.method == 'POST':
         form = CategoryForm(request.POST)
@@ -57,20 +75,13 @@ def add_category_view(request):
             category.created_by = request.user
             category.save()
             messages.success(request, 'Категория успешно добавлена!')
-            return redirect('SourceProg:add_expense')
+            return redirect('SourceProg:categories')
         else:
-            messages.error(request, 'Ошибка при добавлении категории. Пожалуйста, исправьте ошибки в форме.')
-            return render(request, 'sourceprog/add_expense.html', {
-                'form': form,
-                'categories': Category.objects.filter(created_by=request.user),
-            })
-    else:
-        form = CategoryForm()
+            messages.error(request, 'Ошибка при добавлении категории.')
+            return redirect('SourceProg:categories')
 
-    return render(request, 'sourceprog/add_expense.html', {
-        'form': form,
-        'categories': Category.objects.filter(created_by=request.user)
-    })
+    return redirect('SourceProg:categories')  
+
 
 @login_required
 def delete_category_view(request, category_id):
@@ -82,7 +93,7 @@ def delete_category_view(request, category_id):
 
     category.delete()
     messages.success(request, 'Категория успешно удалена!')
-    return redirect('SourceProg:add_expense')
+    return redirect('SourceProg:categories')
 
 @login_required
 def edit_category_view(request, category_id):
@@ -93,17 +104,11 @@ def edit_category_view(request, category_id):
         if form.is_valid():
             form.save()
             messages.success(request, 'Категория успешно обновлена!')
-            return redirect('SourceProg:add_expense')
         else:
-            messages.error(request, 'Ошибка при обновлении категории. Пожалуйста, исправьте ошибки в форме.')
-    else:
-        form = CategoryForm(instance=category)
-
-    return render(request, 'sourceprog/add_category.html', {
-        'form': form,
-        'categories': Category.objects.filter(created_by=request.user),
-        'editing_category': category,
-    })
+            messages.error(request, 'Ошибка при обновлении категории.')
+        return redirect('SourceProg:categories')
+    
+    return redirect('SourceProg:categories') 
 
 @login_required
 def expense_history_view(request):
@@ -142,9 +147,6 @@ def expense_history_view(request):
         'start_date': start_date,
         'end_date': end_date,
     })
-
-def expense_chart_view(request):
-    return render(request, 'sourceprog/expense_chart.html')
 
 @login_required
 def edit_expense(request, expense_id):
@@ -302,3 +304,27 @@ def delete_debt_view(request, debt_id):
 def debts_history_view(request):
     debts = Debt.objects.filter(user=request.user, is_closed=True).order_by('-closed_date')
     return render(request, 'sourceprog/debts_history.html', {'debts': debts})
+
+@login_required
+def analytics_view(request):
+    user = request.user
+
+    expenses = Expense.objects.filter(user=user)
+    expenses_by_category = expenses.values('category__name', 'category__color').annotate(total=Sum('amount'))
+    expenses_by_day = expenses.extra({'day': "date(created_at)"}).values('day').annotate(total=Sum('amount')).order_by('day')
+
+    def convert_queryset(queryset, date_field=None):
+        result = []
+        for item in queryset:
+            new_item = dict(item)
+            if 'total' in new_item:
+                new_item['total'] = float(new_item['total']) if new_item['total'] else 0
+            if date_field and isinstance(new_item.get(date_field), date):
+                new_item[date_field] = new_item[date_field].isoformat()
+            result.append(new_item)
+        return result
+
+    return render(request, 'sourceprog/analytics.html', {
+        'expenses_by_category_json': json.dumps(convert_queryset(expenses_by_category)),
+        'expenses_by_day_json': json.dumps(convert_queryset(expenses_by_day, date_field='day')),
+    })
